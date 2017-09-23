@@ -1,0 +1,22 @@
+{include file="public/head"/}
+<div class="page article js_show">
+    <div class="page__bd">
+        <article class="weui-article">
+            <section>
+                <h2 class="title">{$info.title}</h2>
+                <section>
+                    <p>
+			{$info.value}
+                    </p>
+                </section>
+            </section>
+        </article>
+    </div>
+</div>
+<div class="page list js_show">
+
+    <div class="pages">
+        <div class="weui-flex"><div class="weui-flex__item"><div class="placeholder"><a class="weui-cell_access" href="{:url('info')}/id/{$info.id - 1}">上一章</a></div></div> <div class="weui-flex__item"><div class="placeholder"><a class="weui-cell_access" href="{:url('info')}/id/{$info.id + 1}">下一章</a></div></div></div></div>
+</div>
+
+{include file="public/tail"/}
