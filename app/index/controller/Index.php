@@ -15,7 +15,6 @@ class Index extends Base {
             $this->redirect('/index/index/index');
         }
         model('Book')->where(['id'=>$id])->update(['status'=>1]);
-        echo model('Book')->getLastSql();
         $this->assign('info',$info);
         return $this->fetch();
     }
