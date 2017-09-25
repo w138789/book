@@ -9,7 +9,11 @@
             {foreach name="data" item="v" }
             <a class="weui-cell weui-cell_access" href="/index/index/info/id/{$v.id}">
                 <div class="weui-cell__bd">
-                    <p>{$v.title}</p>
+                    <!--<p>{$v.title}</p>-->
+                    <ul>
+                        <li>{$v.title}</li>
+                        <li>{if $v.status eq 1}已阅{/if}</li>
+                    </ul>
                 </div>
             </a>
             {/foreach}

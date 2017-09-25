@@ -4,7 +4,7 @@ namespace app\index\controller;
 
 class Index extends Base {
     public function index() {
-        $data = model('Book')->order('id DESC')->paginate(2, true);
+        $data = model('Book')->order('id DESC')->paginate(10,true);
         $this->assign('data',$data);
         return $this->fetch();
     }
@@ -14,6 +14,8 @@ class Index extends Base {
         if(empty($info)){
             $this->redirect('/index/index/index');
         }
+        model('Book')->where(['id'=>$id])->update(['status'=>1]);
+        echo model('Book')->getLastSql();
         $this->assign('info',$info);
         return $this->fetch();
     }

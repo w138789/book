@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7b8f65ef-1a9a-4147-9eeb-ecc545ea6f82" name="Default" comment="" />
+    <list default="true" id="7b8f65ef-1a9a-4147-9eeb-ecc545ea6f82" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/index/controller/Index.php" afterPath="$PROJECT_DIR$/app/index/controller/Index.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/index/view/index/index.html" afterPath="$PROJECT_DIR$/app/index/view/index/index.html" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,11 +30,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="database.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/database.php">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/index/view/index/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="416">
-              <caret line="21" column="32" lean-forward="false" selection-start-line="21" selection-start-column="32" selection-end-line="21" selection-end-column="32" />
+            <state relative-caret-position="448">
+              <caret line="14" column="49" lean-forward="false" selection-start-line="14" selection-start-column="49" selection-end-line="14" selection-end-column="49" />
               <folding />
             </state>
           </provider>
@@ -42,6 +47,9 @@
       <find>simple_html_dom</find>
       <find>mb_detect_encoding</find>
     </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -57,6 +65,8 @@
         <option value="$PROJECT_DIR$/info.php" />
         <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/app/database.php" />
+        <option value="$PROJECT_DIR$/app/index/controller/Index.php" />
+        <option value="$PROJECT_DIR$/app/index/view/index/index.html" />
       </list>
     </option>
   </component>
@@ -101,6 +111,34 @@
               <item name="book" type="b2602c69:ProjectViewProjectNode" />
               <item name="book" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="book" type="b2602c69:ProjectViewProjectNode" />
+              <item name="book" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="index" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="book" type="b2602c69:ProjectViewProjectNode" />
+              <item name="book" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="index" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="controller" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="book" type="b2602c69:ProjectViewProjectNode" />
+              <item name="book" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="index" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="view" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="book" type="b2602c69:ProjectViewProjectNode" />
+              <item name="book" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="index" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="view" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="index" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
           </expand>
           <select />
@@ -161,11 +199,12 @@
       <workItem from="1506047033274" duration="5688000" />
       <workItem from="1506053046475" duration="16098000" />
       <workItem from="1506134231072" duration="28000" />
+      <workItem from="1506298802608" duration="277000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="38147000" />
+    <option name="totallyTimeSpent" value="38424000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -184,7 +223,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -211,14 +250,21 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/app/database.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="416">
+          <caret line="21" column="32" lean-forward="false" selection-start-line="21" selection-start-column="32" selection-end-line="21" selection-end-column="32" />
+          <folding>
+            <marker date="1506134240509" expanded="false" signature="6:593" ph="//..." />
+            <marker date="1506134240509" expanded="true" signature="603:1593" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/extra/queue.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1506132741014" expanded="false" signature="6:596" ph="//..." />
-            <marker date="1506132741014" expanded="true" signature="606:633" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -265,10 +311,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1506132741014" expanded="false" signature="6:596" ph="//..." />
-            <marker date="1506132741014" expanded="true" signature="606:633" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -276,6 +318,48 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="416">
           <caret line="21" column="32" lean-forward="false" selection-start-line="21" selection-start-column="32" selection-end-line="21" selection-end-column="32" />
+          <folding>
+            <marker date="1506134240509" expanded="false" signature="6:593" ph="//..." />
+            <marker date="1506134240509" expanded="true" signature="603:1593" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/index/controller/Index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="544">
+          <caret line="17" column="41" lean-forward="false" selection-start-line="17" selection-start-column="41" selection-end-line="17" selection-end-column="41" />
+          <folding>
+            <marker date="1506298981751" expanded="true" signature="66:667" ph="..." />
+            <marker date="1506298981751" expanded="true" signature="96:237" ph="..." />
+            <marker date="1506298981751" expanded="true" signature="274:601" ph="..." />
+            <marker date="1506298981751" expanded="true" signature="359:419" ph="..." />
+            <marker date="1506298981751" expanded="true" signature="634:665" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/index/view/index/info.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="5" column="52" lean-forward="true" selection-start-line="5" selection-start-column="52" selection-end-line="5" selection-end-column="52" />
+          <folding>
+            <marker date="1506132741012" expanded="true" signature="63:383" ph="..." />
+            <marker date="1506132741012" expanded="true" signature="90:376" ph="..." />
+            <marker date="1506132741012" expanded="true" signature="129:365" ph="..." />
+            <marker date="1506132741012" expanded="true" signature="151:346" ph="..." />
+            <marker date="1506132741012" expanded="true" signature="230:323" ph="..." />
+            <marker date="1506132741012" expanded="true" signature="254:296" ph="..." />
+            <marker date="1506132741012" expanded="true" signature="415:774" ph="..." />
+            <marker date="1506132741012" expanded="true" signature="440:767" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/index/view/index/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="448">
+          <caret line="14" column="49" lean-forward="false" selection-start-line="14" selection-start-column="49" selection-end-line="14" selection-end-column="49" />
           <folding />
         </state>
       </provider>
