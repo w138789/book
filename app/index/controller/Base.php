@@ -5,80 +5,40 @@ namespace app\index\controller;
 use think\Controller;
 use think\Request;
 
-class Base  extends Controller{
+class Base extends Controller {
 
     public function __construct(Request $request = null) {
         parent::__construct($request);
-        $this->assign('title','飞剑问道');
-    }
-
-    public function getBook() {
-        $url = 'http://www.booktxt.net/6_6454/';
-        //Header("Location: $url");exit;
-        $site = 'http://www.booktxt.net';
-        $data = $this->httpRequest($url);
-        $data = (iconv("GBK", "UTF-8", $data));
-        //echo $data; exit;
-        preg_match_all("/[\/]{1}[\d]+[_]{1}[\d]+[\/]{1}[\d]+\.html/", $data, $array);
-        //print_r($array); exit;
-        $arr   = $array[0];
-        $arrs  = model('Book')->select();
-        $arrss = [];
-        if ($arrs) {
-            foreach ($arrs as $k => $v) {
-                $arrss[$k] = $v['url'];
-            }
-        }
-        //print_r($arr);
-        //print_r($arrss);
-        $aa = array_diff($arr, $arrss);
-        $aas = array_unique($aa);
-        //print_r($aas);
-        //exit;
-        krsort($aas);
-        $datas = [];
-        $ks    = 0;
-        //print_r($array[0]); exit;
-        foreach ($aas as $k => $v) {
-            $data              = $site . $v;
-            $str               = $this->httpRequest($data);
-            $str               = iconv("GBK", "UTF-8", $str);
-            $datas[$ks]['url'] = $v;
-            $datas[$ks]['str'] = $str;
-            $ks++;
-
-        }
-        return $datas;
-        //return $data;
+        $this->assign('title', '小说');
     }
 
     public function getHtml() {
-        //$s = $this->httpRequest('http://www.booktxt.net/6_6454/2547413.html');
-        $data = $this->getBook();
-        //print_r($data); exit;
-        foreach ($data as $k => $v) {
-            $p                = $this->str_get_html($v['str']);
-            $datas[$k]['url'] = $v['url'];
-            $aa               = $p->find('.bookname@h1');
-
-            //print_r($r); exit;
-            $datas[$k]['title'] = $aa[0]->text();
-
-            $bb = $p->find('#content');
-
-            //print_r($r); exit;
-            $txt = str_replace("&nbsp;&nbsp;&nbsp;&nbsp;", "<br>", $bb[0]->text());
-            //$datas[$k]['value'] = '<html><body><div><h1>' . $datas[$k]['title'] . '</h1>' . $txt . '</div></body></html>';
-            $datas[$k]['value'] = $txt;
-        }
-        //print_r($datas); exit;
-        if (!empty($datas)) {
-            foreach ($datas as $k => $v) {
-                //echo $v['url'] . $v['title'];
-                db('book')->insert($v);
+        $urls = model('Book')->select()->toArray();
+        foreach ($urls as $k => $vs) {
+            $site = 'http://www.booktxt.net';
+            $data = $this->httpRequest($vs['url']);
+            $data = (iconv("GBK", "UTF-8", $data));
+            preg_match_all("/[\/]{1}[\d]+[_]{1}[\d]+[\/]{1}[\d]+\.html/", $data, $array);
+            $arr = $array[0];
+            if (!empty($arr)) {
+                    foreach ($arr as $k => $v) {
+                        $id = model('Chapter')->where(['url' => $v])->value('id');
+                        if(!empty($id)) continue;
+                        $data             = $site . $v;
+                        $str              = $this->httpRequest($data);
+                        $str              = iconv("GBK", "UTF-8", $str);
+                        $p                = $this->str_get_html($str);
+                        $datas['url']     = $v;
+                        $aa               = $p->find('.bookname@h1');
+                        $datas['title']   = $aa[0]->text();
+                        $datas['book_id'] = $vs['id'];
+                        $bb               = $p->find('#content');
+                        $txt              = str_replace("&nbsp;&nbsp;&nbsp;&nbsp;", "<br>", $bb[0]->text());
+                        $datas['value']   = $txt;
+                        db('chapter')->insert($datas);
+                    }
             }
         }
-        //return $datas;
     }
 
     /**
@@ -115,14 +75,3 @@ class Base  extends Controller{
         return $dom;
     }
 }
-
-//$book = new GetBooks();
-//$request = $book->getBook();
-//echo $request;
-//$request = $book->getHtml();
-//echo(iconv("GBK", "UTF-8", $request));
-//echo $request;
-//$sqlstr = 'select * from book';
-//$str = $book->mysqlSelect($sqlstr);
-//$str = $book->mysqlInsert();
-//print_r($request);

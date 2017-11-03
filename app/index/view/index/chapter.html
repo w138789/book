@@ -1,16 +1,18 @@
 {include file="public/head"/}
 <div class="page list js_show">
     <div class="page__hd">
-        <h1 class="page__title">小说</h1>
+        <h1 class="page__title">飞剑问道</h1>
     </div>
     <div class="page__bd">
         <div class="weui-cells">
 
             {foreach name="data" item="v" }
-            <a class="weui-cell weui-cell_access" href="/index/index/chapter/book_id/{$v.id}">
+            <a class="weui-cell weui-cell_access" href="/index/index/info/id/{$v.id}">
                 <div class="weui-cell__bd">
+                    <!--<p>{$v.title}</p>-->
                     <ul>
-                        <li>{$v.name}</li>
+                        <li>{$v.title}</li>
+                        <li>{if $v.status eq 1}已阅{/if}</li>
                     </ul>
                 </div>
             </a>
