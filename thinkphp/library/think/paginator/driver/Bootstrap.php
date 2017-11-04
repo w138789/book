@@ -135,7 +135,7 @@ class Bootstrap extends Paginator
      */
     protected function getAvailablePageWrapper($url, $page)
     {
-        return '<div class="weui-flex__item"><div class="placeholder"><a class="weui-cell_access" href="' . htmlentities($url) . '">' . $page . '</a></div></div>';
+        return '<div class="weui-flex__item"><a class="weui-cell_access" href="' . htmlentities($url) . '"><div class="placeholder">' . $page . '</div></a></div>';
     }
 
     /**
