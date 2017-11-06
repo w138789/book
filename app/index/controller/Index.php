@@ -29,7 +29,7 @@ class Index extends Base {
             'book_id' => $info['book_id'],
         ];
         $previous_id = model('Chapter')->where('id <'.$id)->where($map)->order('id DESC')->value('id');
-        $next_id = model('Chapter')->where('id >'.$id)->where($map)->order('id DESC')->value('id');
+        $next_id = model('Chapter')->where('id >'.$id)->where($map)->order('id ASC')->value('id');
         $this->assign('info', $info);
         $this->assign('previous_id', $previous_id);
         $this->assign('next_id', $next_id);
