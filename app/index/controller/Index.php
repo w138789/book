@@ -25,13 +25,13 @@ class Index extends Base {
             $this->redirect('/index/index/index');
         }
         model('Chapter')->where(['id' => $id])->update(['status' => 1]);
-        $ids     = $id + 1;
         $map     = [
-            'id'      => $ids,
             'book_id' => $info['book_id'],
         ];
-        $next_id = model('Chapter')->where($map)->value('id');
+        $previous_id = model('Chapter')->where('id <'.$id)->where($map)->order('id DESC')->value('id');
+        $next_id = model('Chapter')->where('id >'.$id)->where($map)->order('id DESC')->value('id');
         $this->assign('info', $info);
+        $this->assign('previous_id', $previous_id);
         $this->assign('next_id', $next_id);
         return $this->fetch();
     }
