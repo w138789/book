@@ -9,7 +9,7 @@ class Base extends Controller {
 
     public function __construct(Request $request = null) {
         parent::__construct($request);
-        $this->assign('title', '小说');
+        $this->assign('title', '王林');
     }
 
     public function getHtml() {
