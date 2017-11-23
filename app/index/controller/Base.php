@@ -16,7 +16,8 @@ class Base extends Controller {
         $urls = model('Book')->select()->toArray();
         foreach ($urls as $k => $vs) {
             $site = 'http://www.booktxt.net';
-            $data = $this->httpRequest($vs['url']);
+            $proxy = 'http://163.125.148.103:9797';
+            $data = $this->httpRequest($vs['url'], '',$proxy);
             $data = (iconv("GBK", "UTF-8", $data));
             preg_match_all("/[\/]{1}[\d]+[_]{1}[\d]+[\/]{1}[\d]+\.html/", $data, $array);
             $arr = $array[0];
@@ -25,7 +26,7 @@ class Base extends Controller {
                         $id = model('Chapter')->where(['url' => $v])->value('id');
                         if(!empty($id)) continue;
                         $data             = $site . $v;
-                        $str              = $this->httpRequest($data);
+                        $str              = $this->httpRequest($data, '',$proxy);
                         $str              = iconv("GBK", "UTF-8", $str);
                         $p                = $this->str_get_html($str);
                         $datas['url']     = $v;
@@ -47,9 +48,12 @@ class Base extends Controller {
      * @param null $data
      * @return mixed
      */
-    public function httpRequest($url, $data = null) {
+    public function httpRequest($url, $data = null,$proxy) {
         $curl        = curl_init();
         $this_header = array("Content-Type:text/html;charset=utf-8");
+        if(!empty($proxy)){
+            curl_setopt ($curl, CURLOPT_PROXY, $proxy);
+        }
         curl_setopt($curl, CURLOPT_HTTPHEADER, $this_header);
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
