@@ -31,7 +31,7 @@ class Base extends Controller {
                         $p                = $this->str_get_html($str);
                         $datas['url']     = $v;
                         $aa               = $p->find('.bookname@h1');
-                        $datas['title']   = $aa[0]->text();
+                        echo $datas['title']   = $aa[0]->text();
                         $datas['book_id'] = $vs['id'];
                         $bb               = $p->find('#content');
                         $txt              = str_replace("&nbsp;&nbsp;&nbsp;&nbsp;", "<br>", $bb[0]->text());
