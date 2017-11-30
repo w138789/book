@@ -16,6 +16,6 @@ function curl_string ($url,$user_agent,$proxy){
 
 $url_page = "http://www.booktxt.net";
 $user_agent = "Mozilla/4.0";
-$proxy = "http://120.55.116.181:8080";
+$proxy = "http://163.125.148.103:9797";
 $string = curl_string($url_page,$user_agent,$proxy);
 echo $string;

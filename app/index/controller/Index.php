@@ -37,6 +37,9 @@ class Index extends Base {
     }
 
     public function insert() {
-        $this->getHtml();
+        //拉www.booktxt.net 顶点小说网小说
+        //$this->getBookTxtHtml();
+        //拉fenghuo123.com 烽火中文网小说
+        $this->getFenghuoHtml();
     }
 }
