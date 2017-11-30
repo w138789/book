@@ -5,7 +5,7 @@ namespace app\index\controller;
 class Index extends Base {
 
     public function index() {
-        $data = model('Book')->order('id DESC')->paginate(10, true);
+        $data = model('Book')->where(['host_type'=>'fenghuo'])->order('id DESC')->paginate(10, true);
         $this->assign('data', $data);
         return $this->fetch();
     }
