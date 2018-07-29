@@ -36,10 +36,24 @@ class Index extends Base {
         return $this->fetch();
     }
 
+    //拉文章
     public function insert() {
         //拉www.booktxt.net 顶点小说网小说
         //$this->getBookTxtHtml();
         //拉fenghuo123.com 烽火中文网小说
         $this->getFenghuoHtml();
+    }
+
+    //切换夜间模式
+    public function swith()
+    {
+        $model = session('night');
+        if ($model)
+        {
+            session('night', 0);
+        } else
+        {
+            session('night', 1);
+        }
     }
 }
