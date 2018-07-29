@@ -50,7 +50,7 @@ class Base extends Controller {
      * 拉fenghuo123.com烽火中文网小说
      */
     public function getFenghuoHtml() {
-        $urls = model('Book')->where(['host_type'=>'fenghuo'])->select()->toArray();
+        $urls = model('Book')->where(['host_type'=>'fenghuo'])->select();
         $site = 'fenghuo123.com/';
         foreach ($urls as $k => $vs) {
             $proxy = '';
@@ -72,7 +72,7 @@ class Base extends Controller {
                     preg_match_all('/[^加书签].*/',$str,$d);
                     $datas['book_id'] = $vs['id'];
                     $datas['url'] = $v;
-                    $string = $d[0][34];
+                    $string = $d[0][31];
                     $arrays = explode('&nbsp;',$string);
                     echo $datas['title'] = $arrays[0];
                     $datas['value'] = $arrays[5];
