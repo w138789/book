@@ -26,22 +26,22 @@ class Base extends Controller {
             preg_match_all("/[\/]{1}[\d]+[_]{1}[\d]+[\/]{1}[\d]+\.html/", $data, $array);
             $arr = $array[0];
             if (!empty($arr)) {
-                    foreach ($arr as $k => $v) {
-                        $id = model('Chapter')->where(['url' => $v])->value('id');
-                        if(!empty($id)) continue;
-                        $data             = $site . $v;
-                        $str              = $this->httpRequest($data, '',$proxy);
-                        $str              = iconv("GBK", "UTF-8", $str);
-                        $p                = $this->str_get_booktxt_html($str);
-                        $datas['url']     = $v;
-                        $aa               = $p->find('.bookname@h1');
-                        echo $datas['title']   = $aa[0]->text();
-                        $datas['book_id'] = $vs['id'];
-                        $bb               = $p->find('#content');
-                        $txt              = str_replace("&nbsp;&nbsp;&nbsp;&nbsp;", "<br>", $bb[0]->text());
-                        $datas['value']   = $txt;
-                        db('chapter')->insert($datas);
-                    }
+                foreach ($arr as $k => $v) {
+                    $id = model('Chapter')->where(['url' => $v])->value('id');
+                    if(!empty($id)) continue;
+                    $data             = $site . $v;
+                    $str              = $this->httpRequest($data, '',$proxy);
+                    $str              = iconv("GBK", "UTF-8", $str);
+                    $p                = $this->str_get_booktxt_html($str);
+                    $datas['url']     = $v;
+                    $aa               = $p->find('.bookname@h1');
+                    echo $datas['title']   = $aa[0]->text();
+                    $datas['book_id'] = $vs['id'];
+                    $bb               = $p->find('#content');
+                    $txt              = str_replace("&nbsp;&nbsp;&nbsp;&nbsp;", "<br>", $bb[0]->text());
+                    $datas['value']   = $txt;
+                    db('chapter')->insert($datas);
+                }
             }
         }
     }
@@ -50,7 +50,7 @@ class Base extends Controller {
      * 拉fenghuo123.com烽火中文网小说
      */
     public function getFenghuoHtml() {
-        $urls = model('Book')->where(['host_type'=>'fenghuo'])->select();
+        $urls = model('Book')->where(['host_type'=>'fenghuo'])->select()->toArray();
         $site = 'fenghuo123.com/';
         foreach ($urls as $k => $vs) {
             $proxy = '';
@@ -75,8 +75,10 @@ class Base extends Controller {
                     $string = $d[0][31];
                     $arrays = explode('&nbsp;',$string);
                     echo $datas['title'] = $arrays[0];
-                    $datas['value'] = $arrays[5];
-                    db('chapter')->insert($datas);
+                    if (!empty($arrays[5])){
+                        $datas['value'] = $arrays[5];
+                        db('chapter')->insert($datas);
+                    }
                 }
             }
         }
