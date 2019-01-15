@@ -375,6 +375,9 @@ class App
 
         // 获取操作名
         $actionName = strip_tags($result[2] ?: $config['default_action']);
+        if (!preg_match('/^[A-Za-z](\w|\.)*$/', $controller)) {
+            throw new HttpException(404, 'controller not exists:' . $controller);
+        }
         $actionName = $convert ? strtolower($actionName) : $actionName;
 
         // 设置当前请求的控制器、操作
