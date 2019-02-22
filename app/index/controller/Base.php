@@ -75,9 +75,9 @@ class Base extends Controller
             {
                 foreach ($arrs as $k => $v)
                 {
+                    $v    = str_replace("&amp;", "&", $v);
                     $id = model('Chapter')->where(['url' => $v])->value('id');
                     if (!empty($id)) continue;
-                    $v    = str_replace("&amp;", "&", $v);
                     $data = $site . $v;
                     $str  = $this->httpRequest($data, '', $proxy);
                     preg_match_all('/[^加书签].*/', $str, $d);
