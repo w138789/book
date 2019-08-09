@@ -84,7 +84,13 @@ class Base extends Controller
                     $datas['book_id'] = $vs['id'];
                     $datas['url']     = $v;
                     $string           = '';
-                    if (isset($d[0][25])) $string = $d[0][25];
+                    foreach ($d[0] as $kk => $vv) {
+                        $length = mb_strlen($vv, 'UTF-8');
+                        if ($length > 1000) {
+                            $string = $vv;
+                            break;
+                        }
+                    }
                     if ($string)
                     {
                         $arrays = explode('&nbsp;', $string);
