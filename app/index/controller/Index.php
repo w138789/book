@@ -4,6 +4,12 @@ namespace app\index\controller;
 
 class Index extends Base
 {
+    public function __construct()
+    {
+        parent::__construct();
+        header("Access-Control-Allow-Origin: *");
+        header('Access-Control-Allow-Headers:token');
+    }
 
     public function index()
     {
