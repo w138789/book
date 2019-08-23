@@ -2,15 +2,18 @@
 
 namespace app\index\controller;
 
-class Index extends Base {
+class Index extends Base
+{
 
-    public function index() {
-        $data = model('Book')->where(['host_type'=>'fenghuo'])->order('id DESC')->paginate(10, true);
+    public function index()
+    {
+        $data = model('Book')->where(['host_type' => 'fenghuo'])->order('id DESC')->paginate(10, true);
         $this->assign('data', $data);
         return $this->fetch();
     }
 
-    public function chapter() {
+    public function chapter()
+    {
         $book_id   = input('book_id');
         $data      = model('Chapter')->where(['book_id' => $book_id])->order('id DESC')->paginate(10, true);
         $book_name = model('Book')->where(['id' => $book_id])->value('name');
@@ -19,17 +22,18 @@ class Index extends Base {
         return $this->fetch();
     }
 
-    public function info($id = 0) {
+    public function info($id = 0)
+    {
         $info = model('Chapter')->where(['id' => $id])->find();
         if (empty($info)) {
             $this->redirect('/index/index/index');
         }
         model('Chapter')->where(['id' => $id])->update(['status' => 1]);
-        $map     = [
+        $map         = [
             'book_id' => $info['book_id'],
         ];
-        $previous_id = model('Chapter')->where('id <'.$id)->where($map)->order('id DESC')->value('id');
-        $next_id = model('Chapter')->where('id >'.$id)->where($map)->order('id ASC')->value('id');
+        $previous_id = model('Chapter')->where('id <' . $id)->where($map)->order('id DESC')->value('id');
+        $next_id     = model('Chapter')->where('id >' . $id)->where($map)->order('id ASC')->value('id');
         $this->assign('info', $info);
         $this->assign('previous_id', $previous_id);
         $this->assign('next_id', $next_id);
@@ -37,7 +41,8 @@ class Index extends Base {
     }
 
     //拉文章
-    public function insert() {
+    public function insert()
+    {
         //拉www.booktxt.net 顶点小说网小说
         //$this->getBookTxtHtml();
         //拉fenghuo123.com 烽火中文网小说
@@ -48,18 +53,16 @@ class Index extends Base {
     public function swith()
     {
         $model = session('night');
-        if ($model)
-        {
+        if ($model) {
             session('night', 0);
-        } else
-        {
+        } else {
             session('night', 1);
         }
     }
 
-    public function stet(){
+    public function seller()
+    {
         return '{
-  "seller": {
     "name": "粥品香坊（回龙观）",
     "description": "蜂鸟专送",
     "deliveryTime": 38,
@@ -107,8 +110,12 @@ class Index extends Base {
       "北京市昌平区回龙观西大街龙观置业大厦底商B座102单元1340",
       "营业时间:10:00-20:30"
     ]
-  },
-  "goods": [
+  }';
+    }
+
+    public function goods()
+    {
+        return '[
     {
       "name": "热销榜",
       "type": -1,
@@ -1183,8 +1190,12 @@ class Index extends Base {
         }
       ]
     }
-  ],
-  "ratings": [
+  ]';
+    }
+
+    public function ratings()
+    {
+        return '[
     {
       "username": "3******c",
       "rateTime": 1469281964000,
@@ -1435,7 +1446,6 @@ class Index extends Base {
       "avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png",
       "recommend": []
     }
-  ]
-}';
+  ]';
     }
 }
