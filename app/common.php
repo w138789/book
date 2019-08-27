@@ -41,3 +41,12 @@ function sendError($data = [], $code = 400)
     ];
     return json_encode($result, JSON_UNESCAPED_UNICODE);
 }
+
+/**
+ * 文件测试日志写入
+ * @param $text 写入日志内容
+ */
+function writeLogTest($text)
+{
+    file_put_contents(RUNTIME_PATH . "log.txt", date("Y-m-d H:i:s") . "  " . json_encode($text, JSON_UNESCAPED_UNICODE) . "\r\n", FILE_APPEND);
+}

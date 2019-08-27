@@ -4,11 +4,11 @@ namespace app\index\controller;
 
 use think\Cache;
 use think\Controller;
-use think\Request;
-use think\Session;
+use think\Response;
 
 class TestBase extends Controller
 {
+    public $requestData;
     private $noLogin = [
         'Test/login',
         'Test/register',
@@ -17,9 +17,16 @@ class TestBase extends Controller
     public function __construct()
     {
         header("Access-Control-Allow-Origin: *");
-        header('Access-Control-Allow-Headers:*');
+        header("Access-Control-Allow-Headers:Authorization");
         parent::__construct();
-        $token = request()->header('Authorization');
+        $token = $this->request->header('Authorization');
+        if ($token) {
+            $token = explode(' ', $token);
+            $token = $token[1];
+        }
+        if (strtoupper($this->request->method()) == "OPTIONS") {
+            return Response::create()->send();
+        }
 
         if (!defined('IS_AJAX')) $this->request->isAjax() ? define('IS_AJAX', true) : define('IS_AJAX', false);
         if (!defined('IS_GET')) ($this->request->method() == 'GET') ? define('IS_GET', true) : define('IS_GET', false);
@@ -31,6 +38,8 @@ class TestBase extends Controller
         if (!in_array(CONTROLLER_NAME . '/' . ACTION_NAME, $this->noLogin)) {
             $this->checkToken($token);
         }
+        $requestData = input();
+        if (isset($requestData['ajax'])) $this->requestData = json_decode(urldecode($requestData['ajax']), true);
     }
 
     private function checkToken($token)

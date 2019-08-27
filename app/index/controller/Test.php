@@ -17,7 +17,8 @@ class Test extends TestBase
             $md5    = md5(123456);
             $expire = config('expire');
             Cache::set($md5, 1, $expire);
-
+            //print_r($this->requestData['password']);
+            //exit;
             return $this->sendSuccess($md5);
         }
     }
