@@ -26,3 +26,18 @@ function send_mail($text)
     $smtp->sendmail($smtpemailto, $smtpusermail, $mailsubject, $mailbody, $mailtype);
 
 }
+
+/**
+ * 失败响应
+ * @param array $data
+ * @param int $code
+ * @return \think\response\Json
+ */
+function sendError($data = [], $code = 400)
+{
+    $result = [
+        'error'   => $code,
+        'message' => $data
+    ];
+    return json_encode($result, JSON_UNESCAPED_UNICODE);
+}
