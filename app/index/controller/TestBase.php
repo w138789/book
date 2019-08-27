@@ -16,7 +16,7 @@ class TestBase extends Controller
 
     public function __construct()
     {
-        header("Access-Control-Allow-Origin: 'http://test.sujianxun.com'");
+        header("Access-Control-Allow-Origin: *");
         header('Access-Control-Allow-Headers:*');
         parent::__construct();
         $token = request()->header('Authorization');
