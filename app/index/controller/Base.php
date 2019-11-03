@@ -106,6 +106,7 @@ class Base extends Controller
      */
     public function getCn3k5Html()
     {
+        phpinfo();exit;
         $urls = model('Book')->where(['host_type' => 'cn3k5'])->select();
         $site = 'https://m.cn3k5.com/';
         foreach ($urls as $k => $vs) {
