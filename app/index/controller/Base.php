@@ -157,7 +157,7 @@ class Base extends Controller
                     //$htmDoc->encoding = 'GBK';
                     $title = $htmDoc->getElementById('nr_title');
                     $text  = $htmDoc->getElementById('nr1');
-                    echo iconv("UTF-8", "GB18030//TRANSLIT", $htmDoc->getElementById('nr_title'));
+                    echo iconv("GB18030//TRANSLIT", "UTF-8", $htmDoc->getElementById('nr_title'));
                     exit;
                     //print_r($text->textContent);
                     //exit;
