@@ -13,7 +13,7 @@ class Index extends Base
 
     public function index()
     {
-        $data = model('Book')->order('id DESC')->paginate(10, true);
+        $data = model('Book')->where('status', 1)->order('id DESC')->paginate(10, true);
         $this->assign('data', $data);
         return $this->fetch();
     }
