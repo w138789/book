@@ -157,6 +157,7 @@ class Base extends Controller
                     if ($title->textContent && $text->textContent) {
                         echo $datas['title'] = $title->textContent;
                         $datas['value'] = str_replace('你是天才，一秒记住：三千五中文网，网址:m.cn3k5.com', '', $text->textContent);
+                        $datas['value'] = str_replace("\r\n", "<br>", $text->textContent);
                         db('chapter')->insert($datas);
                     }
                     sleep(300);
