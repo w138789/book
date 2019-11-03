@@ -149,21 +149,19 @@ class Base extends Controller
                     //建立Dom对象，分析HTML文件；
                     libxml_use_internal_errors(true);
                     $str  = $this->httpRequest($data, '', $proxy);
-                    $str  = (iconv("GBK", "UTF-8", $str));
+                    //$str  = (iconv("GBK", "UTF-8", $str));
                     //print_r($str);exit;
-                    $htmDoc = new DOMDocument(1.0,'GBK');
-                    $htmDoc->loadHTMLFile($data);
-                    $htmDoc->normalizeDocument();
-                    print_r($htmDoc);exit;
+                    $htmDoc = new DOMDocument();
+                    $htmDoc->loadHTML($str);
                     //获得到此文档中每一个Table对象；
-                    $htmDoc->encoding = 'GBK';
+                    //$htmDoc->encoding = 'GBK';
                     $title = $htmDoc->getElementById('nr_title');
                     $text  = $htmDoc->getElementById('nr1');
                     //print_r($text->textContent);
                     //exit;
                     //print_r($text);exit;
                     //$data = mb_convert_encoding($title->textContent, 'ASCII', "UTF-8");
-                    print_r($htmDoc);exit;
+                    //print_r($title);exit;
                     //print_r($d[0]);exit;
                     if ($title->textContent && $text->textContent) {
                         echo $datas['title'] = $title->textContent;
