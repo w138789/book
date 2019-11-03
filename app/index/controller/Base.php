@@ -162,7 +162,7 @@ class Base extends Controller
                     //exit;
                     //print_r($text);exit;
                     //$data = mb_convert_encoding($title->textContent, 'ASCII', "UTF-8");
-                    print_r($title);exit;
+                    print_r($htmDoc);exit;
                     //print_r($d[0]);exit;
                     if ($title->textContent && $text->textContent) {
                         echo $datas['title'] = $title->textContent;
