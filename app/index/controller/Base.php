@@ -153,13 +153,13 @@ class Base extends Controller
                     //print_r($str);exit;
                     $htmDoc = new DOMDocument();
                     $htmDoc->loadHTML(mb_convert_encoding($str, 'HTML-ENTITIES', 'GBK'));
-                    print_r($htmDoc);exit;
+                    //print_r($htmDoc);exit;
                     //获得到此文档中每一个Table对象；
                     //$htmDoc->encoding = 'GBK';
                     $title = $htmDoc->getElementById('nr_title');
                     $text  = $htmDoc->getElementById('nr1');
-                    echo $title->textContent;
-                    exit;
+                    //echo $title->textContent;
+                    //exit;
                     //print_r($text->textContent);
                     //exit;
                     //print_r($text);exit;
