@@ -150,12 +150,12 @@ class Base extends Controller
                     libxml_use_internal_errors(true);
                     $str  = $this->httpRequest($data, '', $proxy);
                     $str  = (iconv("GBK", "UTF-8", $str));
-                    $htmDoc = new DOMDocument(1.0,'UTF-8');
+                    $htmDoc = new DOMDocument(1.0,'GBK');
                     $htmDoc->loadHTMLFile($data);
                     $htmDoc->normalizeDocument();
                     //print_r($htmDoc);exit;
                     //获得到此文档中每一个Table对象；
-                    //$htmDoc->encoding = 'UTF-8';
+                    $htmDoc->encoding = 'UTF-8';
                     $title = $htmDoc->getElementById('nr_title');
                     $text  = $htmDoc->getElementById('nr1');
                     //print_r($text->textContent);
