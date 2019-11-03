@@ -106,7 +106,6 @@ class Base extends Controller
      */
     public function getCn3k5Html()
     {
-        phpinfo();exit;
         $urls = model('Book')->where(['host_type' => 'cn3k5'])->select();
         $site = 'https://m.cn3k5.com/';
         foreach ($urls as $k => $vs) {
@@ -153,7 +152,7 @@ class Base extends Controller
                     //$str  = (iconv("GBK", "UTF-8", $str));
                     //print_r($str);exit;
                     $htmDoc = new DOMDocument(1.0, 'GBK');
-                    $htmDoc->loadHTML($str);
+                    $htmDoc->loadHTML(mb_convert_encoding($str, 'HTML-ENTITIES', 'UTF-8'));
                     print_r($htmDoc);exit;
                     //获得到此文档中每一个Table对象；
                     //$htmDoc->encoding = 'GBK';
