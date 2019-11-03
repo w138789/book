@@ -150,7 +150,7 @@ class Base extends Controller
                     libxml_use_internal_errors(true);
                     $str  = $this->httpRequest($data, '', $proxy);
                     $htmDoc = new DOMDocument;
-                    $htmDoc->loadHTMLFile('<?xml encoding="UTF-8">' . $str);
+                    $htmDoc->loadHTMLFile($data);
                     $htmDoc->normalizeDocument();
 
                     //获得到此文档中每一个Table对象；
@@ -160,7 +160,8 @@ class Base extends Controller
                     //exit;
                     //print_r($text);exit;
                     //$data = mb_convert_encoding($title->textContent, 'ASCII', "UTF-8");
-                    print_r($title);exit;
+                    $str  = (iconv("GBK", "UTF-8", $title));
+                    print_r($str);exit;
                     //print_r($d[0]);exit;
                     if ($title->textContent && $text->textContent) {
                         echo $datas['title'] = $title->textContent;
