@@ -151,13 +151,13 @@ class Base extends Controller
                     $str = $this->httpRequest($data, '', $proxy);
                     //$str  = (iconv("GBK", "UTF-8", $str));
                     //print_r($str);exit;
-                    $htmDoc = new DOMDocument();
+                    $htmDoc = new DOMDocument(1.0, 'UTF-8');
                     $htmDoc->loadHTML($str);
                     //获得到此文档中每一个Table对象；
                     //$htmDoc->encoding = 'GBK';
                     $title = $htmDoc->getElementById('nr_title');
                     $text  = $htmDoc->getElementById('nr1');
-                    echo iconv("GB18030//TRANSLIT", "UTF-8", $htmDoc->getElementById('nr_title'));
+                    echo $title->textContent;
                     exit;
                     //print_r($text->textContent);
                     //exit;
