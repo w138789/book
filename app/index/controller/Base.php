@@ -148,7 +148,7 @@ class Base extends Controller
                     $datas['url']     = $v;
                     //建立Dom对象，分析HTML文件；
                     libxml_use_internal_errors(true);
-                    $str  = $this->httpRequest($data, '', $proxy);
+                    $str = $this->httpRequest($data, '', $proxy);
                     //$str  = (iconv("GBK", "UTF-8", $str));
                     //print_r($str);exit;
                     $htmDoc = new DOMDocument();
@@ -157,6 +157,8 @@ class Base extends Controller
                     //$htmDoc->encoding = 'GBK';
                     $title = $htmDoc->getElementById('nr_title');
                     $text  = $htmDoc->getElementById('nr1');
+                    echo iconv("UTF-8", "GB18030//TRANSLIT", $htmDoc->getElementById('nr_title'));
+                    exit;
                     //print_r($text->textContent);
                     //exit;
                     //print_r($text);exit;
