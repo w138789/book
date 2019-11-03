@@ -150,7 +150,7 @@ class Base extends Controller
                     libxml_use_internal_errors(true);
                     $str  = $this->httpRequest($data, '', $proxy);
                     $str  = (iconv("GBK", "UTF-8", $str));
-                    $htmDoc = new DOMDocument;
+                    $htmDoc = new DOMDocument(1.0,'UTF-8');
                     $htmDoc->loadHTMLFile($data);
                     $htmDoc->normalizeDocument();
                     //print_r($htmDoc);exit;
