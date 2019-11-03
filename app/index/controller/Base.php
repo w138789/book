@@ -158,7 +158,7 @@ class Base extends Controller
                     //print_r($text->textContent);
                     //exit;
                     //print_r($text);exit;
-                    $data = mb_convert_encoding($text->textContent, 'HTML-ENTITIES', "UTF-8");
+                    $data = mb_convert_encoding($text->textContent, 'GBK', "UTF-8");
                     print_r($data);exit;
                     //print_r($d[0]);exit;
                     if ($title->textContent && $text->textContent) {
