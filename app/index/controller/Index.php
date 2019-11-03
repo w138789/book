@@ -13,7 +13,7 @@ class Index extends Base
 
     public function index()
     {
-        $data = model('Book')->where(['host_type' => 'fenghuo'])->order('id DESC')->paginate(10, true);
+        $data = model('Book')->order('id DESC')->paginate(10, true);
         $this->assign('data', $data);
         return $this->fetch();
     }
@@ -52,7 +52,8 @@ class Index extends Base
         //拉www.booktxt.net 顶点小说网小说
         //$this->getBookTxtHtml();
         //拉fenghuo123.com 烽火中文网小说
-        $this->getFenghuoHtml();
+        //$this->getFenghuoHtml();
+        $this->getCn3k5Html();
     }
 
     //切换夜间模式
