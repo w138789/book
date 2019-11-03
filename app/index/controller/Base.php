@@ -148,8 +148,9 @@ class Base extends Controller
                     $datas['url']     = $v;
                     //建立Dom对象，分析HTML文件；
                     libxml_use_internal_errors(true);
+                    $str  = $this->httpRequest($data, '', $proxy);
                     $htmDoc = new DOMDocument;
-                    $htmDoc->loadHTMLFile($data);
+                    $htmDoc->loadHTMLFile('<?xml encoding="UTF-8">' . $str);
                     $htmDoc->normalizeDocument();
 
                     //获得到此文档中每一个Table对象；
@@ -158,8 +159,8 @@ class Base extends Controller
                     //print_r($text->textContent);
                     //exit;
                     //print_r($text);exit;
-                    $data = mb_convert_encoding($text->textContent, ENT_QUOTES, "UTF-8");
-                    print_r($data);exit;
+                    //$data = mb_convert_encoding($title->textContent, 'ASCII', "UTF-8");
+                    print_r($title);exit;
                     //print_r($d[0]);exit;
                     if ($title->textContent && $text->textContent) {
                         echo $datas['title'] = $title->textContent;
