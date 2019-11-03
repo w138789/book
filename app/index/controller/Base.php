@@ -159,7 +159,7 @@ class Base extends Controller
                         $datas['value'] = str_replace('你是天才，一秒记住：三千五中文网，网址:m.cn3k5.com', '', $text->textContent);
                         db('chapter')->insert($datas);
                     }
-                    sleep(20);
+                    sleep(300);
                     //exit;
                 }
             }
