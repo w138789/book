@@ -161,8 +161,8 @@ class Base extends Controller
 
                     //print_r($d[0]);exit;
                     if ($title->textContent && $text->textContent) {
-                        echo $datas['title'] = (iconv("GBK", "UTF-8", $title->textContent));
-                        $datas['value'] = str_replace('你是天才，一秒记住：三千五中文网，网址:m.cn3k5.com', '', (iconv("GBK", "UTF-8", $text->textContent)));
+                        echo $datas['title'] = (iconv("GB2312", "UTF-8", $title->textContent));
+                        $datas['value'] = str_replace('你是天才，一秒记住：三千五中文网，网址:m.cn3k5.com', '', (iconv("GB2312", "UTF-8", $text->textContent)));
                         db('chapter')->insert($datas);
                     }
                     sleep(20);
