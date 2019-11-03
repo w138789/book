@@ -155,15 +155,14 @@ class Base extends Controller
                     //获得到此文档中每一个Table对象；
                     $title = $htmDoc->getElementById('nr_title');
                     $text  = $htmDoc->getElementById('nr1');
-                    $htmDoc->encoding = 'GBK'; // insert proper
                     //print_r($text->textContent);
                     //exit;
                     //print_r($text);exit;
 
                     //print_r($d[0]);exit;
                     if ($title->textContent && $text->textContent) {
-                        echo $datas['title'] = $title->textContent;
-                        $datas['value'] = str_replace('你是天才，一秒记住：三千五中文网，网址:m.cn3k5.com', '', $text->textContent);
+                        echo $datas['title'] = (iconv("gbk", "UTF-8", $title->textContent));
+                        $datas['value'] = str_replace('你是天才，一秒记住：三千五中文网，网址:m.cn3k5.com', '', (iconv("gbk", "UTF-8", $text->textContent)));
                         db('chapter')->insert($datas);
                     }
                     sleep(20);
