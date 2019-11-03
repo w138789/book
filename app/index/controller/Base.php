@@ -149,7 +149,6 @@ class Base extends Controller
                     //建立Dom对象，分析HTML文件；
                     libxml_use_internal_errors(true);
                     $htmDoc = new DOMDocument;
-                    $data = mb_convert_encoding($data, 'HTML-ENTITIES', "UTF-8");
                     $htmDoc->loadHTMLFile($data);
                     $htmDoc->normalizeDocument();
 
@@ -159,7 +158,8 @@ class Base extends Controller
                     //print_r($text->textContent);
                     //exit;
                     //print_r($text);exit;
-
+                    $data = mb_convert_encoding($text->textContent, 'HTML-ENTITIES', "UTF-8");
+                    print_r($data);exit;
                     //print_r($d[0]);exit;
                     if ($title->textContent && $text->textContent) {
                         echo $datas['title'] = $title->textContent;
