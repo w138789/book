@@ -155,7 +155,7 @@ class Base extends Controller
                     $htmDoc->normalizeDocument();
                     //print_r($htmDoc);exit;
                     //获得到此文档中每一个Table对象；
-                    $htmDoc->encoding = 'UTF-8';
+                    //$htmDoc->encoding = 'UTF-8';
                     $title = $htmDoc->getElementById('nr_title');
                     $text  = $htmDoc->getElementById('nr1');
                     //print_r($text->textContent);
