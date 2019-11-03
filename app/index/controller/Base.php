@@ -155,7 +155,7 @@ class Base extends Controller
                     //获得到此文档中每一个Table对象；
                     $title = $htmDoc->getElementById('nr_title');
                     $text  = $htmDoc->getElementById('nr1');
-                    $htmDoc->encoding = 'UTF-8'; // insert proper
+                    $htmDoc->encoding = 'GBK'; // insert proper
                     //print_r($text->textContent);
                     //exit;
                     //print_r($text);exit;
