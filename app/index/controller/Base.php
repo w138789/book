@@ -149,30 +149,18 @@ class Base extends Controller
                     //建立Dom对象，分析HTML文件；
                     libxml_use_internal_errors(true);
                     $str = $this->httpRequest($data, '', $proxy);
-                    //$str  = (iconv("GBK", "UTF-8", $str));
-                    //print_r($str);exit;
                     $htmDoc = new DOMDocument();
                     $htmDoc->loadHTML(mb_convert_encoding($str, 'HTML-ENTITIES', 'GBK'));
-                    //print_r($htmDoc);exit;
                     //获得到此文档中每一个Table对象；
-                    //$htmDoc->encoding = 'GBK';
                     $title = $htmDoc->getElementById('nr_title');
                     $text  = $htmDoc->getElementById('nr1');
-                    //echo $title->textContent;
-                    //exit;
-                    //print_r($text->textContent);
-                    //exit;
-                    //print_r($text);exit;
-                    //$data = mb_convert_encoding($title->textContent, 'ASCII', "UTF-8");
-                    //print_r($title);exit;
-                    //print_r($d[0]);exit;
                     if ($title->textContent && $text->textContent) {
                         echo $datas['title'] = $title->textContent;
                         $datas['value'] = str_replace('你是天才，一秒记住：三千五中文网，网址:m.cn3k5.com', '', $text->textContent);
                         db('chapter')->insert($datas);
                     }
-                    //sleep(20);
-                    exit;
+                    sleep(20);
+                    //exit;
                 }
             }
         }
