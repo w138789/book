@@ -151,8 +151,8 @@ class Base extends Controller
                     $str = $this->httpRequest($data, '', $proxy);
                     //$str  = (iconv("GBK", "UTF-8", $str));
                     //print_r($str);exit;
-                    $htmDoc = new DOMDocument(1.0, 'GBK');
-                    $htmDoc->loadHTML(mb_convert_encoding($str, 'HTML-ENTITIES', 'UTF-8'));
+                    $htmDoc = new DOMDocument();
+                    $htmDoc->loadHTML(mb_convert_encoding($str, 'HTML-ENTITIES', 'GBK'));
                     print_r($htmDoc);exit;
                     //获得到此文档中每一个Table对象；
                     //$htmDoc->encoding = 'GBK';
