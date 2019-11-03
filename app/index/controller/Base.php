@@ -150,11 +150,11 @@ class Base extends Controller
                     libxml_use_internal_errors(true);
                     $str  = $this->httpRequest($data, '', $proxy);
                     $str  = (iconv("GBK", "UTF-8", $str));
-                    print_r($str);exit;
+                    //print_r($str);exit;
                     $htmDoc = new DOMDocument(1.0,'GBK');
                     $htmDoc->loadHTMLFile($data);
                     $htmDoc->normalizeDocument();
-                    //print_r($htmDoc);exit;
+                    print_r($htmDoc);exit;
                     //获得到此文档中每一个Table对象；
                     $htmDoc->encoding = 'GBK';
                     $title = $htmDoc->getElementById('nr_title');
