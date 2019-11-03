@@ -149,6 +149,7 @@ class Base extends Controller
                     //建立Dom对象，分析HTML文件；
                     libxml_use_internal_errors(true);
                     $htmDoc = new DOMDocument;
+                    $data = mb_convert_encoding($data, 'HTML-ENTITIES', "UTF-8");
                     $htmDoc->loadHTMLFile($data);
                     $htmDoc->normalizeDocument();
 
@@ -161,11 +162,11 @@ class Base extends Controller
 
                     //print_r($d[0]);exit;
                     if ($title->textContent && $text->textContent) {
-                        echo $datas['title'] = (iconv("utf-8", "GBK", $title->textContent));
-                        $datas['value'] = str_replace('你是天才，一秒记住：三千五中文网，网址:m.cn3k5.com', '', (iconv("UTF-8", "GBK", $text->textContent)));
+                        echo $datas['title'] = $title->textContent;
+                        $datas['value'] = str_replace('你是天才，一秒记住：三千五中文网，网址:m.cn3k5.com', '', $text->textContent);
                         db('chapter')->insert($datas);
                     }
-                    sleep(20);
+                    //sleep(20);
                     exit;
                 }
             }
