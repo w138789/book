@@ -110,7 +110,7 @@ class Base extends Controller
         $site = 'https://m.cn3k5.com/';
         foreach ($urls as $k => $vs) {
             $proxy = '';
-            $data  = $this->httpRequest($vs['url'], '', $proxy);
+            $data  = $this->httpRequest($vs['url']);
             $data  = (iconv("GBK", "UTF-8", $data));
             //$data = '<a href="read_sql.asp?cid=19903628&aid=44102&pno=0">第785章  棺材板压不住了</a><a href="read_sql.asp?cid=19900617&aid=44102&pno=0">第784章  你们敬爱的楚大爷</a>';
             //$data = 'CPU Load 33333';
@@ -148,7 +148,7 @@ class Base extends Controller
                     $datas['url']     = $v;
                     //建立Dom对象，分析HTML文件；
                     libxml_use_internal_errors(true);
-                    $str = $this->httpRequest($data, '', $proxy);
+                    $str    = $this->httpRequest($data, '', $proxy);
                     $htmDoc = new DOMDocument();
                     $htmDoc->loadHTML(mb_convert_encoding($str, 'HTML-ENTITIES', 'GBK'));
                     //获得到此文档中每一个Table对象；
@@ -171,9 +171,10 @@ class Base extends Controller
      * curl get 或 pust
      * @param $url
      * @param null $data
+     * @param string $proxy
      * @return mixed
      */
-    public function httpRequest($url, $data = null, $proxy)
+    public function httpRequest($url, $data = null, $proxy = '')
     {
         $curl        = curl_init();
         $this_header = array("Content-Type:text/html;charset=utf-8");
