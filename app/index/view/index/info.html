@@ -6,7 +6,7 @@
                 <h2 class="title" style="text-align: center">{$info.title}</h2>
                 <section>
                     <p style="font-size: 20px; line-height: 30px;">
-			{$info.value}
+                        {$info.value}
                     </p>
                 </section>
             </section>
@@ -14,9 +14,16 @@
     </div>
 </div>
 <div class="page list js_show">
-
     <div class="pages">
-        <div class="weui-flex"><div class="weui-flex__item"><a class="weui-cell_access" href="{:url('info')}/id/{$previous_id}"><div class="placeholder">上一章</div></a></div> <div class="weui-flex__item"><a class="weui-cell_access" href="{:url('info')}/id/{$next_id}"><div class="placeholder">下一章</div></a></div></div></div>
+        <div class="weui-flex">
+            <div class="weui-flex__item"><a class="weui-cell_access" href="{:url('info')}/id/{$previous_id}">
+                <div class="placeholder">上一章</div>
+            </a></div>
+            <div class="weui-flex__item"><a class="weui-cell_access" href="{:url('info')}/id/{$next_id}">
+                <div class="placeholder">下一章</div>
+            </a></div>
+        </div>
+    </div>
 </div>
 
 {include file="public/tail"/}

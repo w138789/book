@@ -21,7 +21,7 @@ class Index extends Base
     public function chapter()
     {
         $book_id   = input('book_id');
-        $data      = model('Chapter')->where(['book_id' => $book_id])->order('id DESC')->paginate(10, true);
+        $data      = model('Chapter')->where(['book_id' => $book_id, 'status' => 0])->order('url asc')->paginate(10, true);
         $book_name = model('Book')->where(['id' => $book_id])->value('name');
         $this->assign('data', $data);
         $this->assign('book_name', $book_name);
@@ -54,6 +54,16 @@ class Index extends Base
         //拉fenghuo123.com 烽火中文网小说
         //$this->getFenghuoHtml();
         $this->getCn3k5Html();
+    }
+
+    //拉全部文章
+    public function insertAll()
+    {
+        //拉www.booktxt.net 顶点小说网小说
+        //$this->getBookTxtHtml();
+        //拉fenghuo123.com 烽火中文网小说
+        //$this->getFenghuoHtml();
+        $this->getCn3k5HtmlAll();
     }
 
     //切换夜间模式

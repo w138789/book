@@ -106,12 +106,12 @@ class Base extends Controller
      */
     public function getCn3k5Html()
     {
-        $urls = model('Book')->where(['host_type' => 'cn3k5'])->select();
+        $urls = model('Book')->where(['host_type' => 'cn3k5', 'status' => 1])->select();
         $site = 'https://m.cn3k5.com/';
-        foreach ($urls as $k => $vs) {
+        foreach ($urls as $ks => $vs) {
             $proxy = '';
             $data  = $this->httpRequest($vs['url']);
-            $data = (iconv("GBK", "UTF-8", $data));
+            $data  = (iconv("GBK", "UTF-8", $data));
             //$data = '<a href="read_sql.asp?cid=19903628&aid=44102&pno=0">第785章  棺材板压不住了</a><a href="read_sql.asp?cid=19900617&aid=44102&pno=0">第784章  你们敬爱的楚大爷</a>';
             //$data = 'CPU Load 33333';
             //preg_match('/[read_sql].*pno=0/',$data, $array);
@@ -154,15 +154,69 @@ class Base extends Controller
                     //获得到此文档中每一个Table对象；
                     $title = $htmDoc->getElementById('nr_title');
                     $text  = $htmDoc->getElementById('nr1');
-                    if ($title->textContent && $text->textContent) {
+                    if (isset($title->textContent) && $text->textContent) {
                         echo $datas['title'] = $title->textContent;
                         $datas['value'] = str_replace('你是天才，一秒记住：三千五中文网，网址:m.cn3k5.com', '', $text->textContent);
                         $datas['value'] = str_replace("\r\n", "<br>", $datas['value']);
-                        $datas['value'] = str_replace(chr(194) . chr(160).chr(194) . chr(160), "<br>", $datas['value']);  // 解决方法
+                        $datas['value'] = str_replace(chr(194) . chr(160) . chr(194) . chr(160), "<br>", $datas['value']);  // 解决方法
                         db('chapter')->insert($datas);
                     }
                     sleep(300);
                     //exit;
+                }
+            }
+        }
+    }
+
+    /**
+     * 拉m.cn3k5.com三千五中文网全部数据
+     */
+    public function getCn3k5HtmlAll()
+    {
+        $urls = model('Book')->where(['host_type' => 'cn3k5', 'status' => 1])->select();
+        $site = 'https://m.cn3k5.com/';
+        foreach ($urls as $ks => $vs) {
+            $data = $this->httpRequest($vs['url']);
+            $data = (iconv("GBK", "UTF-8", $data));
+            preg_match_all('/[wapbook]+\-[\d]+\-+[\d]{5,15}/', $data, $array);
+            $arr  = $array[0];
+            $arrs = array_reverse($arr);
+            if (!empty($arrs)) {
+                $kNum   = 0;
+                $url    = $vs['url'];
+                $url1   = explode('/', $url);
+                $url2   = explode('_', $url1[3]);
+                $number = $url2[1];
+                foreach ($arrs as $k => $v) {
+                    $v  = str_replace("&amp;", "&", $v);
+                    $id = model('Chapter')->where(['url' => $v])->value('id');
+                    if (!empty($id)) continue;
+                    $data             = $site . $v . '/';
+                    $datas['book_id'] = $vs['id'];
+                    $datas['url']     = $v;
+                    //建立Dom对象，分析HTML文件；
+                    libxml_use_internal_errors(true);
+                    $str    = $this->httpRequest($data);
+                    $htmDoc = new DOMDocument();
+                    $htmDoc->loadHTML(mb_convert_encoding($str, 'HTML-ENTITIES', 'GBK'));
+                    //获得到此文档中每一个Table对象；
+                    $title = $htmDoc->getElementById('nr_title');
+                    $text  = $htmDoc->getElementById('nr1');
+                    if (isset($title->textContent) && $text->textContent) {
+                        echo $datas['title'] = $title->textContent;
+                        $datas['value'] = str_replace('你是天才，一秒记住：三千五中文网，网址:m.cn3k5.com', '', $text->textContent);
+                        $datas['value'] = str_replace("\r\n", "<br>", $datas['value']);
+                        $datas['value'] = str_replace(chr(194) . chr(160) . chr(194) . chr(160), "<br>", $datas['value']);  // 解决方法
+                        db('chapter')->insert($datas);
+                        $kNum++;
+                    }
+                    sleep(10);
+                    //exit;
+                }
+                if ($number > 1 && !$kNum) {
+                    $number -= 1;
+                    $url    = $site . $url2[0] . '_' . $number . '_' . $url2[2] . '/';
+                    db('book')->where('id', $vs['id'])->update(['url' => $url]);
                 }
             }
         }
