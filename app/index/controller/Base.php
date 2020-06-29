@@ -210,7 +210,7 @@ class Base extends Controller
                         db('chapter')->insert($datas);
                         $kNum++;
                     }
-                    sleep(10);
+                    sleep(300);
                     //exit;
                 }
                 if ($number > 1 && !$kNum) {
