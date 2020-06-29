@@ -178,6 +178,7 @@ class Base extends Controller
         foreach ($urls as $ks => $vs) {
             $data = $this->httpRequest($vs['url']);
             $data = (iconv("GBK", "UTF-8", $data));
+            //print_r($data);exit;
             preg_match_all('/[wapbook]+\-[\d]+\-+[\d]{5,15}/', $data, $array);
             $arr  = $array[0];
             $arrs = array_reverse($arr);
@@ -204,15 +205,17 @@ class Base extends Controller
                     $text  = $htmDoc->getElementById('nr1');
                     if (isset($title->textContent) && $text->textContent) {
                         echo $datas['title'] = $title->textContent;
+                        writeLogTest($datas['title']);
                         $datas['value'] = str_replace('你是天才，一秒记住：三千五中文网，网址:m.cn3k5.com', '', $text->textContent);
                         $datas['value'] = str_replace("\r\n", "<br>", $datas['value']);
                         $datas['value'] = str_replace(chr(194) . chr(160) . chr(194) . chr(160), "<br>", $datas['value']);  // 解决方法
                         db('chapter')->insert($datas);
                         $kNum++;
                     }
-                    sleep(300);
+                    sleep(10);
                     //exit;
                 }
+                writeLogTest('结束');
                 if ($number > 1 && !$kNum) {
                     $number -= 1;
                     $url    = $site . $url2[0] . '_' . $number . '_' . $url2[2] . '/';
