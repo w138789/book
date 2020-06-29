@@ -20,8 +20,11 @@ class Index extends Base
 
     public function chapter()
     {
-        $book_id   = input('book_id');
-        $data      = model('Chapter')->where(['book_id' => $book_id, 'status' => 0])->order('url asc')->paginate(10, true);
+        $book_id = input('book_id');
+        $data    = model('Chapter')->where(['book_id' => $book_id, 'status' => 0])->order('url asc')->paginate(10, true);
+        if (!$data->toArray()['data']) {
+            $data = model('Chapter')->where(['book_id' => $book_id])->order('url desc')->paginate(10, true);
+        }
         $book_name = model('Book')->where(['id' => $book_id])->value('name');
         $this->assign('data', $data);
         $this->assign('book_name', $book_name);
