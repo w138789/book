@@ -45,8 +45,8 @@ class Index extends Base
         $map         = [
             'book_id' => $info['book_id'],
         ];
-        $previous_id = model('Chapter')->where('id <' . $id)->where($map)->order('id DESC')->value('id');
-        $next_id     = model('Chapter')->where('id >' . $id)->where($map)->order('id ASC')->value('id');
+        $previous_id = model('Chapter')->where('id', '<', $info['url'])->where($map)->order('url DESC')->value('id');
+        $next_id     = model('Chapter')->where('url', '>', $info['url'])->where($map)->order('url ASC')->value('id');
         $this->assign('info', $info);
         $this->assign('previous_id', $previous_id);
         $this->assign('next_id', $next_id);
