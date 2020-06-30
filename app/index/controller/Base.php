@@ -173,8 +173,9 @@ class Base extends Controller
      */
     public function getCn3k5HtmlAll()
     {
-        $urls = model('Book')->where(['host_type' => 'cn3k5', 'status' => 1])->select();
-        $site = 'https://m.cn3k5.com/';
+        $urls   = model('Book')->where(['host_type' => 'cn3k5', 'status' => 1])->select();
+        $site   = 'https://m.cn3k5.com/';
+        $number = 0;
         foreach ($urls as $ks => $vs) {
             $data = $this->httpRequest($vs['url']);
             $data = (iconv("GBK", "UTF-8", $data));
@@ -223,6 +224,8 @@ class Base extends Controller
                 }
             }
         }
+        echo "\n一次结束\n";
+        if ($number > 1) $this->getCn3k5HtmlAll();
     }
 
     /**
