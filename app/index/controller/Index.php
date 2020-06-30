@@ -27,7 +27,7 @@ class Index extends Base
         if ($page) {
             $data = $data->paginate(10, true);
         } else {
-            $data = $data->paginate(10, true, ['page' => ceil($isReaded / 10)]);
+            $data = $data->paginate(10, true, ['page' => floor(($isReaded + 10) / 10)]);
         }
         $book_name = model('Book')->where(['id' => $book_id])->value('name');
         $this->assign('data', $data);
