@@ -161,7 +161,7 @@ class Base extends Controller
                         $datas['value'] = str_replace(chr(194) . chr(160) . chr(194) . chr(160), "<br>", $datas['value']);  // 解决方法
                         db('chapter')->insert($datas);
                     }
-                    sleep(300);
+                    sleep(rand(100, 200));
                     //exit;
                 }
             }
@@ -204,7 +204,7 @@ class Base extends Controller
                     $title = $htmDoc->getElementById('nr_title');
                     $text  = $htmDoc->getElementById('nr1');
                     if (isset($title->textContent) && $text->textContent) {
-                        echo $datas['title'] = $title->textContent;
+                        echo ($kNum + 1) . ' - ' . $datas['title'] = $title->textContent;
                         writeLogTest($datas['title']);
                         $datas['value'] = str_replace('你是天才，一秒记住：三千五中文网，网址:m.cn3k5.com', '', $text->textContent);
                         $datas['value'] = str_replace("\r\n", "<br>", $datas['value']);
@@ -212,10 +212,10 @@ class Base extends Controller
                         db('chapter')->insert($datas);
                         $kNum++;
                     }
-                    sleep(10);
+                    sleep(rand(10, 20));
                     //exit;
                 }
-                writeLogTest('结束');
+                //writeLogTest('结束');
                 if ($number > 1 && !$kNum) {
                     $number -= 1;
                     $url    = $site . $url2[0] . '_' . $number . '_' . $url2[2] . '/';
