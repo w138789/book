@@ -56,7 +56,7 @@ class Base extends Controller
      */
     public function getFenghuoHtml()
     {
-        $urls = model('Book')->where(['host_type' => 'fenghuo'])->select();
+        $urls = model('Book')->where(['host_type' => 'fenghuo', 'status' => 1])->select();
         $site = 'fenghuo123.com/';
         foreach ($urls as $k => $vs) {
             $proxy = '';

@@ -59,8 +59,17 @@ class Index extends Base
         //拉www.booktxt.net 顶点小说网小说
         //$this->getBookTxtHtml();
         //拉fenghuo123.com 烽火中文网小说
-        //$this->getFenghuoHtml();
-        $this->getCn3k5Html();
+        $hostType = model('Book')->field('host_type')->where('status', 1)->select();
+        foreach ($hostType as $k => $v) {
+            switch ($v['host_type']) {
+                case 'fenghuo':
+                    $this->getFenghuoHtml();
+                    break;
+                case 'cn3k5':
+                    $this->getCn3k5Html();
+                    break;
+            }
+        }
     }
 
     //拉全部文章
