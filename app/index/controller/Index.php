@@ -23,7 +23,7 @@ class Index extends Base
         $book_id  = input('book_id');
         $page     = input('page');
         $isReaded = model('Chapter')->where(['book_id' => $book_id, 'status' => 1])->count();
-        $data     = model('Chapter')->where(['book_id' => $book_id])->order("SUBSTRING_INDEX(url,'-',-1) + 0 asc");
+        $data     = model('Chapter')->where(['book_id' => $book_id])->order("SUBSTRING_INDEX(url,'-',-1) + 0 ASC");
         if ($page) {
             $data = $data->paginate(10, true);
         } else {
@@ -45,8 +45,8 @@ class Index extends Base
         $map         = [
             'book_id' => $info['book_id'],
         ];
-        $previous_id = model('Chapter')->where('id', '<', $info['url'])->where($map)->order('url DESC')->value('id');
-        $next_id     = model('Chapter')->where('url', '>', $info['url'])->where($map)->order('url ASC')->value('id');
+        $previous_id = model('Chapter')->where("SUBSTRING_INDEX(url,'-',-1) + 0 < ". explode('-', $info['url'])[2])->where($map)->order("SUBSTRING_INDEX(url,'-',-1) + 0 DESC")->value('id');
+        $next_id     = model('Chapter')->where("SUBSTRING_INDEX(url,'-',-1) + 0 > ". explode('-', $info['url'])[2])->where($map)->order("SUBSTRING_INDEX(url,'-',-1) + 0 ASC")->value('id');
         $this->assign('info', $info);
         $this->assign('previous_id', $previous_id);
         $this->assign('next_id', $next_id);
