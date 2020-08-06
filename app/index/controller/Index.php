@@ -23,7 +23,7 @@ class Index extends Base
         $book_id  = input('book_id');
         $page     = input('page');
         $isReaded = model('Chapter')->where(['book_id' => $book_id, 'status' => 1])->count();
-        $data     = model('Chapter')->where(['book_id' => $book_id])->order('url asc');
+        $data     = model('Chapter')->where(['book_id' => $book_id])->order("SUBSTRING_INDEX(url,'-',-1) + 0 asc");
         if ($page) {
             $data = $data->paginate(10, true);
         } else {
