@@ -1,4 +1,10 @@
 {include file="public/head"/}
+<script>
+    if (!/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+        document.body.style.width = "980px";
+        document.body.style.margin = "0 auto";
+    }
+</script>
 <div class="page article js_show">
     <div class="page__bd">
         <article class="weui-article">
