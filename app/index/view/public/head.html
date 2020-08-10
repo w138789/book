@@ -12,12 +12,19 @@
             background: #fff;
             font: 16px/1.5 'microsoft yahei';
         }
-        {if session('night') eq 1}
-        body{
+
+        {
+            if session('night') eq 1
+        }
+        body {
             background: #000000;
             color: #006666;
         }
-        {/if}
+
+        {
+        /
+        if
+        }
         li {
             display: inline
         }
@@ -31,14 +38,27 @@
             text-align: center;
             color: rgb(0, 0, 238);
         }
-        a{ text-decoration:none}
+
+        a {
+            text-decoration: none
+        }
+
         .pages {
             padding-top: 15px;
         }
-        .js_show{
+
+        .js_show {
             padding-bottom: 50px;
         }
     </style>
+    <script>
+        window.onload = function () {
+            if (!/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+                document.body.style.width = "980px";
+                document.body.style.margin = "0 auto";
+            }
+        }
+    </script>
 </head>
 <body>
 
