@@ -4,53 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
     <title>{$title}</title>
+    <link rel="stylesheet" href="/css/public.css"/>
     <!--<link rel="stylesheet" href="/css/weui.css"/>-->
     <!--<link rel="stylesheet" href="/css/example.css"/>-->
     <!--<script src="/js/jquery.js"></script>-->
-    <style>
-        html {
-            font: 16px/1.5 'microsoft yahei';
-        }
-
-        li {
-            display: inline
-        }
-
-        .placeholder {
-            margin: 5px;
-            padding: 0 10px;
-            background-color: #ebebeb;
-            height: 2.3em;
-            line-height: 2.3em;
-            text-align: center;
-            color: rgb(0, 0, 238);
-        }
-
-        a {
-            text-decoration: none
-        }
-
-        .pages {
-            padding-top: 15px;
-        }
-
-        .js_show {
-            padding-bottom: 50px;
-        }
-    </style>
-    <script>
-        window.onload = function () {
-            if (!/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
-                document.body.style.width = "980px";
-                document.body.style.margin = "0 auto";
-                if (document.getElementsByTagName("p")[0]) document.getElementsByTagName("p")[0].style.fontSize = '24px';
-            }
-            "{if session('night') eq 1}"
-            document.body.style.background = "#000000";
-            document.body.style.color = "#006666";
-            "{/if}"
-        }
-    </script>
 </head>
 <body>
 

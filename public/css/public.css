@@ -1,0 +1,42 @@
+html {
+    font: 16px/1.5 'microsoft yahei';
+}
+
+li {
+    display: inline
+}
+
+.placeholder {
+    margin: 5px;
+    padding: 0 10px;
+    background-color: #ebebeb;
+    height: 2.3em;
+    line-height: 2.3em;
+    text-align: center;
+    color: rgb(0, 0, 238);
+}
+
+a {
+    text-decoration: none
+}
+
+p {
+    font-size: 20px;
+    line-height: 30px;
+}
+
+.pages {
+    padding-top: 15px;
+}
+
+.js_show {
+    padding-bottom: 50px;
+}
+
+.page__title {
+    text-align: center
+}
+
+.title {
+    text-align: center
+}
