@@ -9,17 +9,9 @@
     <!--<script src="/js/jquery.js"></script>-->
     <style>
         html {
-            background: #fff;
             font: 16px/1.5 'microsoft yahei';
         }
 
-        {if session('night') eq 1}
-        body {
-            background: #000000;
-            color: #006666;
-        }
-
-        {/if}
         li {
             display: inline
         }
@@ -51,7 +43,12 @@
             if (!/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
                 document.body.style.width = "980px";
                 document.body.style.margin = "0 auto";
+                if (document.getElementsByTagName("p")[0]) document.getElementsByTagName("p")[0].style.fontSize = '24px';
             }
+            "{if session('night') eq 1}"
+            document.body.style.background = "#000000";
+            document.body.style.color = "#006666";
+            "{/if}"
         }
     </script>
 </head>
