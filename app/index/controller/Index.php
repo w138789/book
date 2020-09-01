@@ -20,10 +20,22 @@ class Index extends Base
 
     public function chapter()
     {
+        $data     = '';
         $book_id  = input('book_id');
         $page     = input('page');
         $isReaded = model('Chapter')->where(['book_id' => $book_id, 'status' => 1])->count();
-        $data     = model('Chapter')->where(['book_id' => $book_id])->order("SUBSTRING_INDEX(url,'-',-1) + 0 ASC");
+        $bookType = model('Book')->where('id', $book_id)->value('host_type');
+        switch ($bookType) {
+            case 'cn3k5':
+            case 'fenghuo':
+                $data = model('Chapter')->where(['book_id' => $book_id])->order("SUBSTRING_INDEX(url,'-',-1) + 0 ASC");
+                break;
+            case 'xbiquge':
+                $data = model('Chapter')->where(['book_id' => $book_id])->order("id ASC");
+                break;
+        }
+
+
         if ($page) {
             $data = $data->paginate(10, true);
         } else {
@@ -55,8 +67,8 @@ class Index extends Base
                 $next_id     = model('Chapter')->where("SUBSTRING_INDEX(url,'-',-1) + 0 > " . explode('-', $info['url'])[2])->where($map)->order("SUBSTRING_INDEX(url,'-',-1) + 0 ASC")->value('id');
                 break;
             case 'xbiquge':
-                $previous_id = model('Chapter')->where('id', '<',$info['id'])->where($map)->order("id DESC")->value('id');
-                $next_id     = model('Chapter')->where('id', '>',$info['id'])->where($map)->order("id ASC")->value('id');
+                $previous_id = model('Chapter')->where('id', '<', $info['id'])->where($map)->order("id DESC")->value('id');
+                $next_id     = model('Chapter')->where('id', '>', $info['id'])->where($map)->order("id ASC")->value('id');
                 break;
         }
 
