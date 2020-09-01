@@ -37,16 +37,29 @@ class Index extends Base
 
     public function info($id = 0)
     {
-        $info = model('Chapter')->where(['id' => $id])->find();
+        $previous_id = '';
+        $next_id     = '';
+        $info        = model('Chapter')->where(['id' => $id])->find();
         if (empty($info)) {
             $this->redirect('/index/index/index');
         }
         model('Chapter')->where(['id' => $id])->update(['status' => 1]);
-        $map         = [
+        $map      = [
             'book_id' => $info['book_id'],
         ];
-        $previous_id = model('Chapter')->where("SUBSTRING_INDEX(url,'-',-1) + 0 < ". explode('-', $info['url'])[2])->where($map)->order("SUBSTRING_INDEX(url,'-',-1) + 0 DESC")->value('id');
-        $next_id     = model('Chapter')->where("SUBSTRING_INDEX(url,'-',-1) + 0 > ". explode('-', $info['url'])[2])->where($map)->order("SUBSTRING_INDEX(url,'-',-1) + 0 ASC")->value('id');
+        $bookType = model('Book')->where('id', $info['book_id'])->value('host_type');
+        switch ($bookType) {
+            case 'cn3k5':
+            case 'fenghuo':
+                $previous_id = model('Chapter')->where("SUBSTRING_INDEX(url,'-',-1) + 0 < " . explode('-', $info['url'])[2])->where($map)->order("SUBSTRING_INDEX(url,'-',-1) + 0 DESC")->value('id');
+                $next_id     = model('Chapter')->where("SUBSTRING_INDEX(url,'-',-1) + 0 > " . explode('-', $info['url'])[2])->where($map)->order("SUBSTRING_INDEX(url,'-',-1) + 0 ASC")->value('id');
+                break;
+            case 'xbiquge':
+                $previous_id = model('Chapter')->where('id', '<',$info['id'])->where($map)->order("id DESC")->value('id');
+                $next_id     = model('Chapter')->where('id', '>',$info['id'])->where($map)->order("id ASC")->value('id');
+                break;
+        }
+
         $this->assign('info', $info);
         $this->assign('previous_id', $previous_id);
         $this->assign('next_id', $next_id);
@@ -67,6 +80,9 @@ class Index extends Base
                     break;
                 case 'cn3k5':
                     $this->getCn3k5Html();
+                    break;
+                case 'xbiquge':
+                    $this->getXbiqugeHtml();
                     break;
             }
         }

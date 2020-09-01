@@ -109,14 +109,8 @@ class Base extends Controller
         $urls = model('Book')->where(['host_type' => 'cn3k5', 'status' => 1])->select();
         $site = 'https://m.cn3k5.com/';
         foreach ($urls as $ks => $vs) {
-            $proxy = '';
             $data  = $this->httpRequest($vs['url']);
             $data  = (iconv("GBK", "UTF-8", $data));
-            //$data = '<a href="read_sql.asp?cid=19903628&aid=44102&pno=0">第785章  棺材板压不住了</a><a href="read_sql.asp?cid=19900617&aid=44102&pno=0">第784章  你们敬爱的楚大爷</a>';
-            //$data = 'CPU Load 33333';
-            //preg_match('/[read_sql].*pno=0/',$data, $array);
-            //preg_match('/[read_sql.asp?cid=]+[\d]+[&aid=]+[\d]+&pno=0/',$data, $array);
-            //wapbook-76735-32139270
             preg_match_all('/[wapbook]+\-[\d]+\-+[\d]{5,15}/', $data, $array);
             $arr  = $array[0];
             $arrs = array_reverse($arr);
@@ -126,24 +120,6 @@ class Base extends Controller
                     $id = model('Chapter')->where(['url' => $v])->value('id');
                     if (!empty($id)) continue;
                     $data = $site . $v . '/';
-                    //                    $str  = $this->httpRequest($data, '', $proxy);
-                    //                    $str  = (iconv("GBK", "UTF-8", $str));
-                    //                    preg_match_all('/[^你是天才].*/', $str, $d);
-                    //                    $datas['book_id'] = $vs['id'];
-                    //                    $datas['url']     = $v;
-                    //                    $string           = '';
-                    //                    foreach ($d[0] as $kk => $vv) {
-                    //                        preg_match_all('/[^\<div\ class="nr_title" id="nr_title">
-                    //].*/', $vv, $dss);
-                    //                        if ($kk >= 30 && $kk <= 40 && mb_strlen($dss[0][0]) >= 10 && mb_strlen($dss[0][0]) < 30) {
-                    //                            echo $datas['title'] = $vv;
-                    //                        }
-                    //                        $length = mb_strlen($vv);
-                    //                        if ($length > 1000) {
-                    //                            $string = $vv;
-                    //                            break;
-                    //                        }
-                    //                    }
                     $datas['book_id'] = $vs['id'];
                     $datas['url']     = $v;
                     //建立Dom对象，分析HTML文件；
@@ -161,10 +137,62 @@ class Base extends Controller
                         $datas['value'] = str_replace(chr(194) . chr(160) . chr(194) . chr(160), "<br>", $datas['value']);  // 解决方法
                         db('chapter')->insert($datas);
                     }
-                    sleep(rand(100, 200));
-                    //exit;
+                    sleep(rand(10, 20));
                 }
             }
+        }
+    }
+
+    /**
+     * 拉www.xbiquge.la新笔趣阁网
+     */
+    public function getXbiqugeHtml()
+    {
+        $urls = model('Book')->where(['host_type' => 'xbiquge', 'status' => 1])->select();
+        $site = 'http://www.xbiquge.la/';
+        foreach ($urls as $ks => $v) {
+            $kNum = 0;
+            libxml_use_internal_errors(true);
+            do {
+                $nextUrl = '';
+                $str     = $this->httpRequest($v['url']);
+                $htmDoc  = new DOMDocument();
+                $htmDoc->loadHTML($str);
+                //获得到此文档中每一个Table对象；
+                $title   = $htmDoc->getElementsByTagName('h1');
+                $content = $htmDoc->getElementById('content');
+                $next    = $htmDoc->getElementsByTagName('a');
+                if (!isset($content->nodeValue)) break;
+                $content = str_replace(["\r\n", "\r", "\n"], "<br><br>", $content->nodeValue);
+                $content = str_replace('亲,点击进去,给个好评呗,分数越高更新越快,据说给新笔趣阁打满分的最后都找到了漂亮的老婆哦!手机站全新改版升级地址：http://m.xbiquge.la，数据和书签与电脑站同步，无广告清新阅读！', "", $content);
+                $content = str_replace("，<br><br>", "", $content);
+
+                foreach ($title as $node) {
+                    $title = $node->nodeValue;
+                    echo "\n";
+                }
+
+                foreach ($next as $node) {
+                    if ($node->nodeValue == '下一章') {
+                        $nextUrl = $site . $node->getAttribute('href');
+                    }
+                }
+
+                $isTrue = db('Chapter')->where('url', $v['url'])->value('id');
+                if (substr($nextUrl, -5) == '.html') model('Book')->where('id', $v['id'])->update(['url' => $nextUrl]);
+                if (!$isTrue) {
+                    $datas['book_id'] = $v['id'];
+                    $datas['url']     = $v['url'];
+                    $datas['title']   = $title;
+                    $datas['value']   = $content;  // 解决方法
+                    db('chapter')->insert($datas);
+                    echo ($kNum + 1) . ' - ' . $title;
+                    $kNum++;
+                }
+                $v['url'] = $nextUrl;
+                if ($nextUrl == '') break;
+                sleep(rand(10, 20));
+            } while (true);
         }
     }
 
@@ -238,7 +266,7 @@ class Base extends Controller
         curl_setopt($ch, CURLOPT_URL, $url);
 
         curl_setopt($ch, CURLOPT_HEADER, true);
-
+        curl_setopt($ch, CURLOPT_ENCODING, 'gzip');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_USERAGENT, $ua);
         curl_setopt($ch, CURLOPT_COOKIE, 'NID=67=pdjIQN5CUKVn0bRgAlqitBk7WHVivLsbLcr7QOWMn35Pq03N1WMy6kxYBPORtaQUPQrfMK4Yo0vVz8tH97ejX3q7P2lNuPjTOhwqaI2bXCgPGSDKkdFoiYIqXubR0cTJ48hIAaKQqiQi_lpoe6edhMglvOO9ynw; PREF=ID=52aa671013493765:U=0cfb5c96530d04e3:FF=0:LD=en:TM=1370266105:LM=1370341612:GM=1:S=Kcc6KUnZwWfy3cOl; OTZ=1800625_34_34__34_; S=talkgadget=38GaRzFbruDPtFjrghEtRw; SID=DQAAALoAAADHyIbtG3J_u2hwNi4N6UQWgXlwOAQL58VRB_0xQYbDiL2HA5zvefboor5YVmHc8Zt5lcA0LCd2Riv4WsW53ZbNCv8Qu_THhIvtRgdEZfgk26LrKmObye1wU62jESQoNdbapFAfEH_IGHSIA0ZKsZrHiWLGVpujKyUvHHGsZc_XZm4Z4tb2bbYWWYAv02mw2njnf4jiKP2QTxnlnKFK77UvWn4FFcahe-XTk8Jlqblu66AlkTGMZpU0BDlYMValdnU; HSID=A6VT_ZJ0ZSm8NTdFf; SSID=A9_PWUXbZLazoEskE; APISID=RSS_BK5QSEmzBxlS/ApSt2fMy1g36vrYvk; SAPISID=ZIMOP9lJ_E8SLdkL/A32W20hPpwgd5Kg1J');
