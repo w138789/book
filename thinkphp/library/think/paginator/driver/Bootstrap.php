@@ -112,8 +112,8 @@ class Bootstrap extends Paginator
             if ($this->simple) {
                 return sprintf(
                     '<div class="weui-flex">%s %s</div>',
-                    $this->getPreviousButton('上一页'),
-                    $this->getNextButton('下一页')
+                    $this->getNextButton('下一页'),
+                    $this->getPreviousButton('上一页')
                 );
             } else {
                 return sprintf(
