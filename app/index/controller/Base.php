@@ -5,6 +5,7 @@ namespace app\index\controller;
 use DOMDocument;
 use think\Controller;
 use think\Request;
+use think\Session;
 
 class Base extends Controller
 {
@@ -12,7 +13,23 @@ class Base extends Controller
     public function __construct(Request $request = null)
     {
         ini_set('max_execution_time', 0);   //永不超时
+        Session::start();
         parent::__construct($request);
+        if (!defined('IS_AJAX')) $this->request->isAjax() ? define('IS_AJAX', true) : define('IS_AJAX', false);
+        if (!defined('IS_GET')) ($this->request->method() == 'GET') ? define('IS_GET', true) : define('IS_GET', false);
+        if (!defined('IS_POST')) ($this->request->method() == 'POST') ? define('IS_POST', true) : define('IS_POST', false);
+        if (!defined('MODULE_NAME')) define('MODULE_NAME', $this->request->module());         //当前模块名称
+        if (!defined('CONTROLLER_NAME')) define('CONTROLLER_NAME', $this->request->controller()); //当前控制器名称
+        if (!defined('ACTION_NAME')) define('ACTION_NAME', $this->request->action());         //当前操作名称
+
+        $currentLink = strtolower(CONTROLLER_NAME . '/' . ACTION_NAME);
+        if ($currentLink != 'index/login') {
+            $redirectUrl = $this->request->url() != '' ? $_SERVER['REQUEST_URI'] : url();
+            session('redirectUrl', $redirectUrl, config('prefix'));
+            $isLogin = getSession('isLogin');
+            if (!$isLogin) $this->redirect(url('index/login'));
+        }
+
         $this->assign('title', 'su');
     }
 
@@ -109,8 +126,8 @@ class Base extends Controller
         $urls = model('Book')->where(['host_type' => 'cn3k5', 'status' => 1])->select();
         $site = 'https://m.cn3k5.com/';
         foreach ($urls as $ks => $vs) {
-            $data  = $this->httpRequest($vs['url']);
-            $data  = (iconv("GBK", "UTF-8", $data));
+            $data = $this->httpRequest($vs['url']);
+            $data = (iconv("GBK", "UTF-8", $data));
             preg_match_all('/[wapbook]+\-[\d]+\-+[\d]{5,15}/', $data, $array);
             $arr  = $array[0];
             $arrs = array_reverse($arr);
@@ -119,7 +136,7 @@ class Base extends Controller
                     $v  = str_replace("&amp;", "&", $v);
                     $id = model('Chapter')->where(['url' => $v])->value('id');
                     if (!empty($id)) continue;
-                    $data = $site . $v . '/';
+                    $data             = $site . $v . '/';
                     $datas['book_id'] = $vs['id'];
                     $datas['url']     = $v;
                     //建立Dom对象，分析HTML文件；

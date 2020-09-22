@@ -1,0 +1,46 @@
+{include file="public/head"/}
+<style>
+
+    input {
+        margin: 10px 20px;
+        height: 35px;
+        border: 1px solid #d2d2d2;
+        width: 250px;
+        font-size: 70px;
+    }
+
+    .login {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -moz-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        -o-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+
+    .title {
+        font-size: 22px;
+        text-align: center;
+    }
+
+    .password {
+        text-align: center;
+    }
+
+    .placeholder {
+        margin: 20px 100px;
+        font-size: 20px;
+        border: none;
+    }
+
+</style>
+<form action="{:url('index/login')}" method="post">
+    <div class="login">
+        <div class="title">密码</div>
+        <div class="password"><input type="password" name="password"></div>
+        <input class="placeholder" type="submit" value="登录">
+    </div>
+</form>
+{include file="public/tail"/}

@@ -11,6 +11,11 @@ class Index extends Base
         header('Access-Control-Allow-Headers:token');
     }
 
+    /**
+     * 书籍列表
+     * @return mixed
+     * @throws \think\exception\DbException
+     */
     public function index()
     {
         $data = model('Book')->where('status', 1)->order('id DESC')->paginate(10, true);
@@ -18,6 +23,11 @@ class Index extends Base
         return $this->fetch();
     }
 
+    /**
+     * 文章列表
+     * @return mixed
+     * @throws \think\exception\DbException
+     */
     public function chapter()
     {
         $data     = '';
@@ -47,6 +57,14 @@ class Index extends Base
         return $this->fetch();
     }
 
+    /**
+     * 文章详情
+     * @param int $id
+     * @return mixed
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
     public function info($id = 0)
     {
         $previous_id = '';
@@ -78,7 +96,9 @@ class Index extends Base
         return $this->fetch();
     }
 
-    //拉文章
+    /**
+     * 拉文章
+     */
     public function insert()
     {
         //拉www.booktxt.net 顶点小说网小说
@@ -100,7 +120,9 @@ class Index extends Base
         }
     }
 
-    //拉全部文章
+    /**
+     * 拉全部文章
+     */
     public function insertAll()
     {
         //拉www.booktxt.net 顶点小说网小说
@@ -110,7 +132,9 @@ class Index extends Base
         $this->getCn3k5HtmlAll();
     }
 
-    //切换夜间模式
+    /**
+     * 切换夜间模式
+     */
     public function swith()
     {
         $model = session('night');
@@ -121,6 +145,30 @@ class Index extends Base
         }
     }
 
+    /**
+     * 登录
+     * @return mixed
+     */
+    public function login()
+    {
+        if (IS_POST) {
+            $password = input('password');
+            if ($password != '7026546') {
+                echo "<script> alert('" . $password . "'); </script>";
+            } else {
+                $prefix = config('prefix');
+                session('isLogin', 1, $prefix);
+                $redirectUrl = !getSession('redirectUrl') ? url('index') : getSession('redirectUrl');
+                $this->redirect($redirectUrl);
+            }
+        }
+        return $this->fetch();
+    }
+
+    /**
+     * 其他接口数据,,用户APP测试
+     * @return string
+     */
     public function seller()
     {
         return '{
@@ -174,6 +222,10 @@ class Index extends Base
   }';
     }
 
+    /**
+     * 其他接口数据,,用户APP测试
+     * @return string
+     */
     public function goods()
     {
         return '[
@@ -1254,6 +1306,10 @@ class Index extends Base
   ]';
     }
 
+    /**
+     * 其他接口数据,,用户APP测试
+     * @return string
+     */
     public function ratings()
     {
         return '[
