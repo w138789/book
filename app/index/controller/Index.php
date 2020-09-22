@@ -154,7 +154,7 @@ class Index extends Base
         if (IS_POST) {
             $password = input('password');
             if ($password != '7026546') {
-                echo "<script> alert('" . $password . "'); </script>";
+                echo "<script> alert('登录错误'); </script>";
             } else {
                 $prefix = config('prefix');
                 session('isLogin', 1, $prefix);
