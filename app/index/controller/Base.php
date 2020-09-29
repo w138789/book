@@ -23,7 +23,7 @@ class Base extends Controller
         if (!defined('ACTION_NAME')) define('ACTION_NAME', $this->request->action());         //当前操作名称
 
         $currentLink = strtolower(CONTROLLER_NAME . '/' . ACTION_NAME);
-        if (!in_array($currentLink, ['index/login', 'index/swith'])) {
+        if (!in_array($currentLink, ['index/insert', 'index/insertAll', 'index/login', 'index/swith'])) {
             $redirectUrl = $this->request->url() != '' ? $_SERVER['REQUEST_URI'] : url();
             session('redirectUrl', $redirectUrl, config('prefix'));
             $isLogin = getSession('isLogin');
