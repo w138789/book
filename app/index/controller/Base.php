@@ -324,4 +324,34 @@ class Base extends Controller
         $dom->load($str, $lowercase, $stripRN);
         return $dom;
     }
+
+    /**
+     * 成功响应
+     * @param array $data
+     * @return array
+     */
+    public function sendSuccess($data = [])
+    {
+        $result = [
+            'error'   => 0,
+            'message' => 'success',
+            'data'    => $data,
+        ];
+        return json($result);
+    }
+
+    /**
+     * 失败响应
+     * @param array $data
+     * @param int $code
+     * @return \think\response\Json
+     */
+    public function sendError($data = [], $code = 400)
+    {
+        $result = [
+            'error'   => $code,
+            'message' => $data
+        ];
+        return json($result);
+    }
 }

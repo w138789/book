@@ -137,11 +137,11 @@ class Index extends Base
      */
     public function swith()
     {
-        $model = session('night');
+        $model = getSession('night');
         if ($model) {
-            session('night', 0);
+            session('night', 0, config('prefix'));
         } else {
-            session('night', 1);
+            session('night', 1, config('prefix'));
         }
     }
 

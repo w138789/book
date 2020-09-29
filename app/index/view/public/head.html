@@ -8,15 +8,24 @@
     <!--<link rel="stylesheet" href="/css/weui.css"/>-->
     <!--<link rel="stylesheet" href="/css/example.css"/>-->
     <!--<script src="/js/jquery.js"></script>-->
+    <style>
+        {if getSession('night') eq 1}
+        body{
+            background: #000000;
+            color: #006666;
+        }
+        li{
+            color: #006666;
+        }
+        .placeholder{
+            background: #292929;
+            color: #006666;
+        }
+        {/if}
+    </style>
     <script>
         if (!/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
             document.write('<link rel="stylesheet" href="/css/pc.css"/>');
-        }
-        window.onload = function () {
-            "{if session('night') eq 1}"
-            document.body.style.background = "#000000";
-            document.body.style.color = "#006666";
-            "{/if}"
         }
     </script>
 </head>
