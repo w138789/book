@@ -1,11 +1,5 @@
 {include file="public/head"/}
-<style>
-    .page__hd{
-        margin: 1.5rem;
-    }
-</style>
 <div class="page list js_show">
-    <span class="page__hd"onclick="swith()">切换</span>
     <div class="page__bd">
         <div class="weui-cells">
 
@@ -24,15 +18,4 @@
         {$data->render()}
     </div>
 </div>
-<script src="static/js/common.js"></script>
-<script>
-    function swith() {
-        /*$.get("{:url('swith')}", function () {
-            // location.reload();
-        })*/
-        ajaxRequest("{:url('swith')}",'post','',function (ret) {
-            location.reload();
-        })
-    }
-</script>
 {include file="public/tail"/}

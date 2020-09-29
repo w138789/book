@@ -4,11 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
     <title>{$title}</title>
-    <link rel="stylesheet" href="/css/public.css"/>
+    <link rel="stylesheet" href="__PUBLIC_CSS__/public.css"/>
     <!--<link rel="stylesheet" href="/css/weui.css"/>-->
     <!--<link rel="stylesheet" href="/css/example.css"/>-->
     <!--<script src="/js/jquery.js"></script>-->
     <style>
+        .page__hd{
+            margin: 1.5rem;
+        }
         {if getSession('night') eq 1}
         body{
             background: #000000;
@@ -25,9 +28,10 @@
     </style>
     <script>
         if (!/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
-            document.write('<link rel="stylesheet" href="/css/pc.css"/>');
+            document.write('<link rel="stylesheet" href="/stat/pc.css"/>');
         }
     </script>
 </head>
 <body>
+<span class="page__hd"onclick="swith()">切换</span>
 

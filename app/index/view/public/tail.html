@@ -1,3 +1,11 @@
+<script src="__PUBLIC_JS__/common.js"></script>
+<script>
+function swith() {
+    ajaxRequest("{:url('swith')}",'post','',function (ret) {
+        location.reload();
+    })
+}
+</script>
 </body>
 </html>
 
