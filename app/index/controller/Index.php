@@ -18,7 +18,7 @@ class Index extends Base
      */
     public function index()
     {
-        $data = model('Book')->where('status', 1)->order('id DESC')->paginate(10, true);
+        $data = model('Book')->order('id DESC')->paginate(10, true);
         $this->assign('data', $data);
         return $this->fetch();
     }
@@ -41,6 +41,7 @@ class Index extends Base
                 $data = model('Chapter')->where(['book_id' => $book_id])->order("SUBSTRING_INDEX(url,'-',-1) + 0 ASC");
                 break;
             case 'xbiquge':
+            case 'biquku':
                 $data = model('Chapter')->where(['book_id' => $book_id])->order("id ASC");
                 break;
         }
@@ -85,6 +86,7 @@ class Index extends Base
                 $next_id     = model('Chapter')->where("SUBSTRING_INDEX(url,'-',-1) + 0 > " . explode('-', $info['url'])[2])->where($map)->order("SUBSTRING_INDEX(url,'-',-1) + 0 ASC")->value('id');
                 break;
             case 'xbiquge':
+            case 'biquku':
                 $previous_id = model('Chapter')->where('id', '<', $info['id'])->where($map)->order("id DESC")->value('id');
                 $next_id     = model('Chapter')->where('id', '>', $info['id'])->where($map)->order("id ASC")->value('id');
                 break;
@@ -115,6 +117,9 @@ class Index extends Base
                     break;
                 case 'xbiquge':
                     $this->getXbiqugeHtml();
+                    break;
+                case 'biquku':
+                    $this->getBiqukuHtml();
                     break;
             }
         }

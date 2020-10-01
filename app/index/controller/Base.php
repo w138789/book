@@ -214,6 +214,64 @@ class Base extends Controller
     }
 
     /**
+     * 拉www.biquku.la笔趣阁网
+     */
+    public function getBiqukuHtml()
+    {
+        $urls = model('Book')->where(['host_type' => 'biquku', 'status' => 1])->select();
+        $site = 'http://www.biquku.la/';
+        foreach ($urls as $ks => $v) {
+            $kNum = 0;
+            libxml_use_internal_errors(true);
+            do {
+                $nextUrl = '';
+                $str     = $this->httpRequest($v['url']);
+                $htmDoc  = new DOMDocument();
+                $htmDoc->loadHTML($str);
+                //获得到此文档中每一个Table对象；
+                $title   = $htmDoc->getElementsByTagName('h1');
+                $content = $htmDoc->getElementById('content');
+                $next    = $htmDoc->getElementsByTagName('a');
+                if (!isset($content->nodeValue)) break;
+                $content = str_replace(["\r\n", "\r", "\n","  "], "<br><br>", $content->nodeValue);
+                $content = str_replace(urldecode('%C2%A0%C2%A0'),"<br>",$content);
+                $content = str_replace('笔趣阁ｗｗｗ.ｂｉｑｕｋｕ.ｌａ', "", $content);
+                $content = str_replace("，<br><br>", "", $content);
+
+                foreach ($title as $node) {
+                    $title = $node->nodeValue;
+                    echo "\n";
+                }
+
+                $cate = '';
+                foreach ($next as $node) {
+                    if ($node->nodeValue == '章节列表') {
+                        $cate = $node->getAttribute('href');
+                    }
+                    if ($node->nodeValue == '下一章') {
+                        $nextUrl = $site . $cate . $node->getAttribute('href');
+                    }
+                }
+
+                $isTrue = db('Chapter')->where('url', $v['url'])->value('id');
+                if (substr($nextUrl, -5) == '.html') model('Book')->where('id', $v['id'])->update(['url' => $nextUrl]);
+                if (!$isTrue) {
+                    $datas['book_id'] = $v['id'];
+                    $datas['url']     = $v['url'];
+                    $datas['title']   = $title;
+                    $datas['value']   = $content;  // 解决方法
+                    db('chapter')->insert($datas);
+                    echo ($kNum + 1) . ' - ' . $title;
+                    $kNum++;
+                }
+                $v['url'] = $nextUrl;
+                if ($nextUrl == '') break;
+                sleep(rand(3, 5));
+            } while (true);
+        }
+    }
+
+    /**
      * 拉m.cn3k5.com三千五中文网全部数据
      */
     public function getCn3k5HtmlAll()
