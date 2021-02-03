@@ -166,7 +166,7 @@ class Base extends Controller
     public function getXbiqugeHtml()
     {
         $urls = model('Book')->where(['host_type' => 'xbiquge', 'status' => 1])->select();
-        $site = 'http://www.xbiquge.la/';
+        $site = 'http://www.paoshuzw.com/';
         foreach ($urls as $ks => $v) {
             $kNum = 0;
             libxml_use_internal_errors(true);
@@ -219,7 +219,7 @@ class Base extends Controller
     public function getBiqukuHtml()
     {
         $urls = model('Book')->where(['host_type' => 'biquku', 'status' => 1])->select();
-        $site = 'http://www.biquku.la/';
+        $site = 'http://www.bswtan.com/';
         foreach ($urls as $ks => $v) {
             $kNum = 0;
             libxml_use_internal_errors(true);
@@ -233,8 +233,8 @@ class Base extends Controller
                 $content = $htmDoc->getElementById('content');
                 $next    = $htmDoc->getElementsByTagName('a');
                 if (!isset($content->nodeValue)) break;
-                $content = str_replace(["\r\n", "\r", "\n","  "], "<br><br>", $content->nodeValue);
-                $content = str_replace(urldecode('%C2%A0%C2%A0'),"<br>",$content);
+                $content = str_replace(["\r\n", "\r", "\n", "  "], "<br><br>", $content->nodeValue);
+                $content = str_replace(urldecode('%C2%A0%C2%A0'), "<br>", $content);
                 $content = str_replace('笔趣阁ｗｗｗ.ｂｉｑｕｋｕ.ｌａ', "", $content);
                 $content = str_replace("，<br><br>", "", $content);
 
