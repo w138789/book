@@ -207,7 +207,7 @@ class Base extends Controller
                     $kNum++;
                 }
                 $v['url'] = $nextUrl;
-                if ($nextUrl == '') break;
+                if (substr($nextUrl, -5) != '.html') break;
                 sleep(rand(10, 20));
             } while (true);
         }
