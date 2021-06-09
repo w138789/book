@@ -266,7 +266,7 @@ class Base extends Controller
                 }
                 $v['url'] = $nextUrl;
                 if (substr($nextUrl, -5) != '.html') break;
-                sleep(rand(3, 5));
+                sleep(rand(10, 20));
             } while (true);
         }
     }
