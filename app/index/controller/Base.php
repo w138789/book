@@ -219,7 +219,7 @@ class Base extends Controller
     public function getBiqukuHtml()
     {
         $urls = model('Book')->where(['host_type' => 'biquku', 'status' => 1])->select();
-        $site = 'http://www.bswtan.com/';
+        $site = 'https://www.ibswtan.com/';
         foreach ($urls as $ks => $v) {
             $kNum = 0;
             libxml_use_internal_errors(true);
