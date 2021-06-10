@@ -24,7 +24,7 @@ class Base extends Controller
 
         $currentLink = strtolower(CONTROLLER_NAME . '/' . ACTION_NAME);
         if (!in_array($currentLink, ['index/insert', 'index/insertAll', 'index/login', 'index/swith'])) {
-            $redirectUrl = $this->request->url() != '' ? $_SERVER['REQUEST_URI'] : url();
+            $redirectUrl = $this->request->url() != '' ? $this->request->url() : url();
             session('redirectUrl', $redirectUrl, config('prefix'));
             $isLogin = getSession('isLogin');
             if (!$isLogin) $this->redirect(url('index/login'));
