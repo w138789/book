@@ -15,6 +15,12 @@ class Base extends Controller
         ini_set('max_execution_time', 0);   //永不超时
         Session::start();
         parent::__construct($request);
+
+        //允许跨域
+        header('Access-Control-Allow-Origin: *');
+        header("Access-Control-Allow-Headers: token, Origin, X-Requested-With, Content-Type, Accept, Authorization");
+        header('Access-Control-Allow-Methods: POST,GET,PUT,DELETE');
+
         if (!defined('IS_AJAX')) $this->request->isAjax() ? define('IS_AJAX', true) : define('IS_AJAX', false);
         if (!defined('IS_GET')) ($this->request->method() == 'GET') ? define('IS_GET', true) : define('IS_GET', false);
         if (!defined('IS_POST')) ($this->request->method() == 'POST') ? define('IS_POST', true) : define('IS_POST', false);
@@ -23,7 +29,8 @@ class Base extends Controller
         if (!defined('ACTION_NAME')) define('ACTION_NAME', $this->request->action());         //当前操作名称
 
         $currentLink = strtolower(CONTROLLER_NAME . '/' . ACTION_NAME);
-        if (!in_array($currentLink, ['index/insert', 'index/insertAll', 'index/login', 'index/swith'])) {
+
+        if (!in_array($currentLink, ['index/insert', 'index/insertAll', 'index/login', 'index/swith', 'index/appindex', 'index/appchapter', 'index/appinfo'])) {
             $redirectUrl = $this->request->url() != '' ? $this->request->url() : url();
             session('redirectUrl', $redirectUrl, config('prefix'));
             $isLogin = getSession('isLogin');
