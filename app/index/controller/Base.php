@@ -173,7 +173,7 @@ class Base extends Controller
     public function getXbiqugeHtml()
     {
         $urls = model('Book')->where(['host_type' => 'xbiquge', 'status' => 1])->select();
-        $site = 'http://www.paoshuzw.com/';
+        $site = 'https://www.xbiquge.la/';
         foreach ($urls as $ks => $v) {
             $kNum = 0;
             libxml_use_internal_errors(true);
