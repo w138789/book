@@ -194,6 +194,7 @@ class Index extends Base
     {
         $id     = input('get.id');
         $result = Book::where('id', $id)->delete();
+        db('chapter')->where('book_id', $id)->delete();
         return $result ? '删除成功' : '删除失败';
     }
 
