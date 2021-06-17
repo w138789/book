@@ -9,7 +9,7 @@
                     <ul>
                         <li>
                             {$v.name}
-
+                            url: {$v.url}
                             状态:
                             {if $v.status == 1}
                             <a href="{:url('bookStatus')}?id={$v.id}&status=1">开启</a>
