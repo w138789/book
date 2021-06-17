@@ -1,0 +1,62 @@
+{include file="public/head"/}
+<style>
+
+    input {
+        margin: 10px 20px;
+        height: 2.5rem;
+        border: 1px solid #d2d2d2;
+        width: 250px;
+        font-size: 20px;
+    }
+
+    .login {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -moz-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        -o-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+
+    .title {
+        font-size: 22px;
+        text-align: center;
+    }
+
+    .text {
+        text-align: center;
+    }
+
+    .placeholder {
+        width: 250px;
+        margin: 20px 100px;
+        font-size: 20px;
+        border: none;
+    }
+
+</style>
+<form action="{:url('index/book')}" method="post">
+    <div class="login">
+        <div>
+            <div class="title">书名</div>
+            <div class="text"><input type="text" name="name"></div>
+        </div>
+        <div>
+            <div class="title">url</div>
+            <div class="text"><input type="text" name="url"></div>
+        </div>
+        <div>
+            <div class="title">类型</div>
+            <div class="text">
+                <select name="host_type">
+                    <option value="xbiquge">xbiquge</option>
+                    <option value="biquku">biquku</option>
+                </select>
+            </div>
+        </div>
+        <button class="placeholder" onclick="this.form.submit()">添加</button>
+    </div>
+</form>
+{include file="public/tail"/}

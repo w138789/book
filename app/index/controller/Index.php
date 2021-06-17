@@ -2,6 +2,8 @@
 
 namespace app\index\controller;
 
+use app\index\model\Book;
+
 class Index extends Base
 {
     public function __construct()
@@ -166,6 +168,21 @@ class Index extends Base
                 $redirectUrl = !getSession('redirectUrl') ? url('index') : getSession('redirectUrl');
                 $this->redirect($redirectUrl);
             }
+        }
+        return $this->fetch();
+    }
+
+    /**
+     * 添加书籍
+     * @return mixed
+     */
+    public function book()
+    {
+        if (IS_POST) {
+            $data           = input('post.');
+            $data['status'] = 1;
+            $result         = Book::insert($data);
+            return $result ? '添加成功' : '添加失败';
         }
         return $this->fetch();
     }
