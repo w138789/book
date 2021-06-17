@@ -237,11 +237,11 @@ class Index extends Base
         switch ($bookType) {
             case 'cn3k5':
             case 'fenghuo':
-                $data = model('Chapter')->field('id, title')->where(['book_id' => $book_id])->order("SUBSTRING_INDEX(url,'-',-1) + 0 ASC");
+                $data = model('Chapter')->field('id, title, status')->where(['book_id' => $book_id])->order("SUBSTRING_INDEX(url,'-',-1) + 0 ASC");
                 break;
             case 'xbiquge':
             case 'biquku':
-                $data = model('Chapter')->field('id, title')->where(['book_id' => $book_id])->order("id ASC");
+                $data = model('Chapter')->field('id, title, status')->where(['book_id' => $book_id])->order("id ASC");
                 break;
         }
 
