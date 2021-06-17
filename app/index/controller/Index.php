@@ -172,6 +172,31 @@ class Index extends Base
         return $this->fetch();
     }
 
+    public function bookList()
+    {
+        $list = Book::select();
+        $this->assign('list', $list);
+        return $this->fetch();
+    }
+
+    public function bookStatus()
+    {
+        $id     = input('get.id');
+        $status = input('get.status');
+        $data   = [
+            'status' => $status ? 0 : 1
+        ];
+        $result = Book::where('id', $id)->update($data);
+        return $result ? '更新成功' : '更新失败';
+    }
+
+    public function bookDel()
+    {
+        $id     = input('get.id');
+        $result = Book::where('id', $id)->delete();
+        return $result ? '删除成功' : '删除失败';
+    }
+
     /**
      * 添加书籍
      * @return mixed

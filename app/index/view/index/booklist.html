@@ -1,0 +1,28 @@
+{include file="public/head"/}
+<div class="page list js_show">
+    <div class="page__bd">
+        <div class="weui-cells">
+
+            {foreach name="list" item="v" }
+            <a class="weui-cell weui-cell_access">
+                <div class="weui-cell__bd">
+                    <ul>
+                        <li>
+                            {$v.name}
+
+                            状态:
+                            {if $v.status == 1}
+                            <a href="{:url('bookStatus')}?id={$v.id}&status=1">开启</a>
+                            {else}
+                            <a href="{:url('bookStatus')}?id={$v.id}&status=0">关闭</a>
+                            {/if}
+                            <a href="{:url('bookDel')}?id={$v.id}">删除</a>
+                        </li>
+                    </ul>
+                </div>
+            </a>
+            {/foreach}
+        </div>
+    </div>
+</div>
+{include file="public/tail"/}
