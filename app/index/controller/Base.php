@@ -173,13 +173,13 @@ class Base extends Controller
     public function getXbiqugeHtml()
     {
         $urls = model('Book')->where(['host_type' => 'xbiquge', 'status' => 1])->select();
-        $site = 'https://www.xbiquge.la/';
         foreach ($urls as $ks => $v) {
             $kNum = 0;
             libxml_use_internal_errors(true);
             do {
                 $nextUrl = '';
-                $str     = $this->httpRequest($v['url']);
+                $url     = $v['url'];
+                $str     = $this->httpRequest($url);
                 $htmDoc  = new DOMDocument();
                 $htmDoc->loadHTML($str);
                 //获得到此文档中每一个Table对象；
@@ -198,6 +198,8 @@ class Base extends Controller
 
                 foreach ($next as $node) {
                     if ($node->nodeValue == '下一章') {
+                        $urlInfo = parse_url($url);
+                        $site    = $urlInfo['scheme'] . '://' . $urlInfo['host'] . '/';
                         $nextUrl = $site . $node->getAttribute('href');
                     }
                 }
@@ -215,6 +217,7 @@ class Base extends Controller
                 }
                 $v['url'] = $nextUrl;
                 if (substr($nextUrl, -5) != '.html') break;
+                if ($kNum > 10) break;
                 sleep(rand(10, 20));
             } while (true);
         }
@@ -226,13 +229,13 @@ class Base extends Controller
     public function getBiqukuHtml()
     {
         $urls = model('Book')->where(['host_type' => 'biquku', 'status' => 1])->select();
-        $site = 'https://www.ibswtan.com/';
         foreach ($urls as $ks => $v) {
             $kNum = 0;
             libxml_use_internal_errors(true);
             do {
                 $nextUrl = '';
-                $str     = $this->httpRequest($v['url']);
+                $url     = $v['url'];
+                $str     = $this->httpRequest($url);
                 $htmDoc  = new DOMDocument();
                 $htmDoc->loadHTML($str);
                 //获得到此文档中每一个Table对象；
@@ -256,6 +259,8 @@ class Base extends Controller
                         $cate = $node->getAttribute('href');
                     }
                     if ($node->nodeValue == '下一章') {
+                        $urlInfo = parse_url($url);
+                        $site    = $urlInfo['scheme'] . '://' . $urlInfo['host'] . '/';
                         $nextUrl = $site . $cate . $node->getAttribute('href');
                     }
                 }
@@ -273,6 +278,7 @@ class Base extends Controller
                 }
                 $v['url'] = $nextUrl;
                 if (substr($nextUrl, -5) != '.html') break;
+                if ($kNum > 10) break;
                 sleep(rand(10, 20));
             } while (true);
         }
